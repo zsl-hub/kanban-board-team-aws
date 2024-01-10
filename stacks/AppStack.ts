@@ -5,6 +5,7 @@ function createApi(stack: Stack) {
   return new Api(stack, "Api", {
     routes: {
       "GET /hello-world": "packages/functions/src/hello-world/lambda.main",
+      "GET /task/get-all": "packages/functions/src/task/get-all/lambda.main"
     },
   });
 }
