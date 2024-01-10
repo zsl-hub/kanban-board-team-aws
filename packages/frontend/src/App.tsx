@@ -1,5 +1,3 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import {useState} from "react";
 
@@ -14,28 +12,39 @@ function App() {
         setData(data)
     }
 
+    const fetchedColums = [
+        {
+            id: 1,
+            columnName: "TODO"
+        },
+        {
+            id: 2,
+            columnName: "IN PROGRESS"
+        },
+        {
+            id: 3,
+            columnName: "DONE"
+        }
+    ]
+
     return (
-        <>
-            <div>
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo"/>
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo"/>
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <button onClick={fetchDataFromApi}>Fetch Data From Lambda Api</button>
-            {data && <p color="blue">Lambda Response: {data}</p>}
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
-        </>
+        <main>
+            {fetchedColums.map(col => (
+                <section>
+                    <h1>{col.columnName}</h1>
+
+                    <div className="task">
+                        <h3>Task name</h3>
+                    
+                        <p>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto et sapiente, maiores cum ea nostrum amet unde quo. Dolorum sapiente consectetur explicabo iure. Consequuntur eveniet odit sit unde corrupti enim?
+                            Porro iste corrupti molestiae. Vero voluptatum quos optio numquam dignissimos. Dolore asperiores facilis iure nemo architecto omnis repudiandae assumenda doloribus ex. Quae est voluptas sint eveniet, ipsam tenetur dolorem culpa.
+                        </p>
+                    </div>
+
+                </section>
+            ))}
+        </main>
     )
 }
 
