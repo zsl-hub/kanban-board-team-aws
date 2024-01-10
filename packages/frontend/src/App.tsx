@@ -35,13 +35,11 @@ function App() {
 
                     <div className="task">
                         <h3>Task name</h3>
-                    
                         <p>
                             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto et sapiente, maiores cum ea nostrum amet unde quo. Dolorum sapiente consectetur explicabo iure. Consequuntur eveniet odit sit unde corrupti enim?
                             Porro iste corrupti molestiae. Vero voluptatum quos optio numquam dignissimos. Dolore asperiores facilis iure nemo architecto omnis repudiandae assumenda doloribus ex. Quae est voluptas sint eveniet, ipsam tenetur dolorem culpa.
                         </p>
                     </div>
-
                 </section>
             ))}
         </main>
