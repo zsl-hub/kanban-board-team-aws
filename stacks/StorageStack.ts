@@ -5,8 +5,8 @@ export function StorageStack({stack}: StackContext){
     fields: {
       id: "number",
       name: "string",
-      desc: "string",
-      columnKey: "string",
+      description: "string",
+      columnId: "string",
     },
     primaryIndex: { partitionKey: "id" },
   });
