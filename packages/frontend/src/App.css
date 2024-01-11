@@ -1,39 +1,29 @@
+:root {
+  --column-gray: rgb(235, 236, 240);
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  margin: 0;
+  padding: 2em;
+  min-height: 100dvh;
 }
 
-main {
+.grid {
+  gap: 2rem;
+  overflow-x: auto;
+}
+
+.column {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--column-gray);
+  border-radius: 15px;
+  padding: 1em;
+  height: calc(100dvh - 75px);
 }
 
-section {
-  border-radius: 10px;
-  background-color: rgb(228, 228, 228);
-  max-width: 320px;
-  min-height: 800px;
-  padding: 0.5em 2em;
-}
-
-section > h1 {
-  text-align: left;
-}
-
-.task {
-  max-height: 200px;
-  overflow: auto;
-  border-radius: 5px;
-  background-color: rgb(255, 255, 255);
-  padding: 0.25em 0.75em;
-}
-
-.task h3 {
-  text-align: left;
-}
-
-.task p {
-  text-align: justify;
+.column-header {
+  display: flex;
+  gap: 0.5rem;
 }

@@ -1,49 +1,34 @@
-import './App.css'
-import {useState} from "react";
-
+import "./App.css";
+import Icon from "./components/Icon";
+import columns from "../columns";
+import {
+  Grid,
+  GridItem,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Text,
+  Button,
+} from "@chakra-ui/react";
 
 function App() {
-    const [data, setData] = useState<string|undefined>(undefined)
+  return (
+    <Grid templateColumns={`repeat(${columns.length}, 330px)`} className="grid">
+      {columns.map((col) => (
+        <GridItem className="column">
+          <Card>
+            <CardHeader className="column-header">
+              <Icon color={col.statusColor} />
+              <Text as="b">{col.name}</Text>
+            </CardHeader>
+          </Card>
 
-    const fetchDataFromApi = async () => {
-        setData(undefined)
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/hello-world`)
-        const data = await response.text()
-        setData(data)
-    }
-
-    const fetchedColums = [
-        {
-            id: 1,
-            columnName: "TODO"
-        },
-        {
-            id: 2,
-            columnName: "IN PROGRESS"
-        },
-        {
-            id: 3,
-            columnName: "DONE"
-        }
-    ]
-
-    return (
-        <main>
-            {fetchedColums.map(col => (
-                <section>
-                    <h1>{col.columnName}</h1>
-
-                    <div className="task">
-                        <h3>Task name</h3>
-                        <p>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto et sapiente, maiores cum ea nostrum amet unde quo. Dolorum sapiente consectetur explicabo iure. Consequuntur eveniet odit sit unde corrupti enim?
-                            Porro iste corrupti molestiae. Vero voluptatum quos optio numquam dignissimos. Dolore asperiores facilis iure nemo architecto omnis repudiandae assumenda doloribus ex. Quae est voluptas sint eveniet, ipsam tenetur dolorem culpa.
-                        </p>
-                    </div>
-                </section>
-            ))}
-        </main>
-    )
+          <Button colorScheme="teal">+</Button>
+        </GridItem>
+      ))}
+    </Grid>
+  );
 }
 
-export default App
+export default App;
