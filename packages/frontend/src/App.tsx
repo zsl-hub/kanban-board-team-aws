@@ -1,31 +1,13 @@
 import "./App.css";
-import Icon from "./components/Icon";
+import { Grid } from "@chakra-ui/react";
 import columns from "../config/columns";
-import {
-  Grid,
-  GridItem,
-  Card,
-  CardHeader,
-  Text,
-  Button,
-} from "@chakra-ui/react";
+import Column from "./components/Column";
 
 function App() {
   return (
     <Grid templateColumns={`repeat(${columns.length}, 320px)`} className="grid">
       {columns.map((col) => (
-        <GridItem className="column">
-          <Card w="full">
-            <CardHeader className="column-header">
-              <Icon color={col.statusColor} />
-              <Text as="b">{col.description}</Text>
-            </CardHeader>
-          </Card>
-
-          <Button colorScheme="teal" w="5">
-            +
-          </Button>
-        </GridItem>
+        <Column key={col.id} column={col} />
       ))}
     </Grid>
   );
