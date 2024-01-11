@@ -1,48 +1,53 @@
 import internal from "stream";
 
-interface task{
+interface Task{
     id : number,
     name : string,
     desc : string,
-    columnKey : string, 
+    columnId : number, 
 }
 
 export async function main() {
-    const tasks = {
-        task1 : {
-            id : 2137,
-            name : "Cokolwiek",
-            desc : "Opis",
-            columnKey : "to-do"
-        },
-        task2 : {
-            id : 2138,
-            name : "Cokolwiek",
-            desc : "Opis",
-            columnKey : "done"
-        },
-        task3 : {
-            id : 2139,
-            name : "Cokolwiek",
-            desc : "Opis",
-            columnKey : "to-do"
-        },
-        task4 : {
-            id : 21310,
-            name : "Cokolwiek",
-            desc : "Opis",
-            columnKey : "done"
-        },
-        task5 : {
-            id : 21311,
-            name : "Cokolwiek",
-            desc : "Opis",
-            columnKey : "in-progress"
-        },
-    }
+    
+    const result = {
+        Items: [
+            {
+                id : 2137,
+                name : "Cokolwiek",
+                desc : "Opis",
+                columnId : 1
+            },
+            {
+                id : 2138,
+                name : "Cokolwiek",
+                desc : "Opis",
+                columnId : 2
+            },
+            {
+                id : 2139,
+                name : "Cokolwiek",
+                desc : "Opis",
+                columnId : 3
+            },
+            {
+                id : 21310,
+                name : "Cokolwiek",
+                desc : "Opis",
+                columnId : 2
+            },
+            {
+                id : 21311,
+                name : "Cokolwiek",
+                desc : "Opis",
+                columnId : 1
+            },
+        ]
+    } 
+
+    
     
     return {
         statusCode: 200,
-        body : JSON.stringify(tasks),
+        body : JSON.stringify(result),
     };
 }
