@@ -6,25 +6,25 @@ import {
   GridItem,
   Card,
   CardHeader,
-  CardBody,
-  CardFooter,
   Text,
   Button,
 } from "@chakra-ui/react";
 
 function App() {
   return (
-    <Grid templateColumns={`repeat(${columns.length}, 330px)`} className="grid">
+    <Grid templateColumns={`repeat(${columns.length}, 320px)`} className="grid">
       {columns.map((col) => (
         <GridItem className="column">
-          <Card>
+          <Card w="full">
             <CardHeader className="column-header">
               <Icon color={col.statusColor} />
               <Text as="b">{col.name}</Text>
             </CardHeader>
           </Card>
 
-          <Button colorScheme="teal">+</Button>
+          <Button colorScheme="teal" w="5">
+            +
+          </Button>
         </GridItem>
       ))}
     </Grid>
