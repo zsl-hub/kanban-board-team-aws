@@ -4,8 +4,8 @@ import {App, Stack} from "aws-cdk-lib";
 function createApi(stack: Stack) {
   return new Api(stack, "Api", {
     routes: {
-      "GET /hello-world": "packages/functions/src/hello-world/lambda.main",
-      "GET /task/add": "packages/functions/src/task/add/lambda.main",
+      "GET /hello-world": "packages/functions/src/lambda/hello-world/lambda.main",
+      "GET /task/add": "packages/functions/src/lambda/task/add/lambda.main",
     },
   });
 }
