@@ -1,6 +1,6 @@
 import "./App.css";
 import Icon from "./components/Icon";
-import columns from "../columns";
+import columns from "../config/columns";
 import {
   Grid,
   GridItem,
@@ -18,7 +18,7 @@ function App() {
           <Card w="full">
             <CardHeader className="column-header">
               <Icon color={col.statusColor} />
-              <Text as="b">{col.name}</Text>
+              <Text as="b">{col.description}</Text>
             </CardHeader>
           </Card>
 
