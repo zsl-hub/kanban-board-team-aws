@@ -3,7 +3,7 @@ import { ApiResponse } from "/home/user/kanban-board-team-aws/packages/functions
 
 
 export async function main() {
-    //try {ApiResponse.ok('example')}
+
     const res = ApiResponse.ok("example");
     return res;
 }
