@@ -1,15 +1,32 @@
-import { StackContext, Table } from "sst/constructs"
+import { Api, StackContext, Table } from "sst/constructs"
 
 export function StorageStack({stack}: StackContext){
-    const table = new Table(stack, "Tasks", {
-      fields: {
-        id: "number",
-        name: "string",
-        desc: "string",
-        columnKey: "string",
+  const table = new Table(stack, "Tasks", {
+    fields: {
+      id: "number",
+      name: "string",
+      desc: "string",
+      columnKey: "string",
+    },
+    primaryIndex: { partitionKey: "id" },
+  });
+
+  // Create the HTTP API for DynamoDB
+  const api = new Api(stack, "API", {
+    defaults: {
+      function: {
+        // Bind the table name to our API
+        bind: [table],
       },
-      primaryIndex: { partitionKey: "id" },
-    });
-  
-    return table;
+    },
+    routes: {
+    },
+  });
+
+  // Show the URLs in the output
+  stack.addOutputs({
+    ApiEndpoint: api.url,
+  });
+
+  return table;
 }

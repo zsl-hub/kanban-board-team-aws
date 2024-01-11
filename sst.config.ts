@@ -12,5 +12,8 @@ export default {
   stacks(app) {
     app.stack(AppStack);
     app.stack(StorageStack);
+    if (app.stage !== "prod") {
+      app.setDefaultRemovalPolicy("destroy");
+    }
   }
 } satisfies SSTConfig;
