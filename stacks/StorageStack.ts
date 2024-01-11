@@ -11,22 +11,5 @@ export function StorageStack({stack}: StackContext){
     primaryIndex: { partitionKey: "id" },
   });
 
-  // Create the HTTP API for DynamoDB
-  const api = new Api(stack, "API", {
-    defaults: {
-      function: {
-        // Bind the table name to our API
-        bind: [table],
-      },
-    },
-    routes: {
-    },
-  });
-
-  // Show the URLs in the output
-  stack.addOutputs({
-    ApiEndpoint: api.url,
-  });
-
   return table;
 }
