@@ -1,4 +1,5 @@
 import internal from "stream";
+import { ApiResponse } from "/home/user/kanban-board-team-aws/packages/functions/src/model/responses";
 
 interface Task{
     id : number,
@@ -46,8 +47,6 @@ export async function main() {
 
     
     
-    return {
-        statusCode: 200,
-        body : JSON.stringify(result),
-    };
+    const res = ApiResponse.ok(result);
+    return res;
 }

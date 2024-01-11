@@ -5,6 +5,7 @@ function createApi(stack: Stack) {
   return new Api(stack, "Api", {
     routes: {
       "GET /task/add": "packages/functions/src/lambda/task/add/lambda.main",
+      "GET /task/get-all": "packages/functions/src/lambda/task/get-all/lambda.main",
     },
   });
 }
