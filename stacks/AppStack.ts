@@ -14,8 +14,8 @@ function createApi(stack: Stack) {
       },
     },
     routes: {
-      "GET /task/add": "packages/functions/src/lambda/task/add/lambda.main",
-      "GET /test": "packages/functions/src/repositories/jakchcesz.main",
+      "POST /task/add": "packages/functions/src/lambda/task/add/lambda.main",
+      "GET /task/get-all": "packages/functions/src/lambda/task/get-all/lambda.main",
     },
   });
 }

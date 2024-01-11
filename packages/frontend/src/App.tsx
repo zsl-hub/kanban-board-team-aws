@@ -9,7 +9,7 @@ function App() {
 
     const fetchDataFromApi = async () => {
         setData(undefined)
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/task/add`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/task/get-all`)
         const data = await response.text()
         setData(data)
     }
