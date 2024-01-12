@@ -1,5 +1,6 @@
 export class ApiResponse {
-    public static ok(data : T) {
+
+    public static ok<T>(data : T) {
         return {
         body: JSON.stringify(data),
         statusCode: 200,
