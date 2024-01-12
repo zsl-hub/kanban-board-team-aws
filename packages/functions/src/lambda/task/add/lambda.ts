@@ -2,8 +2,14 @@ import { ApiResponse } from "/home/user/kanban-board-team-aws/packages/functions
 
 
 
-export async function main() {
+export async function main(e: any) {
+    let body = e.queryStringParameters
+    if(typeof(e.body) == typeof("string")) body=JSON.parse(e.body) //handling stringified body
 
-    const res = ApiResponse.ok("example");
-    return res;
+    const task = {
+        name : body.name,
+        description : body.description,
+        columnId : parseInt(body.columnId),
+    }
+    return ApiResponse.ok(task);
 }
