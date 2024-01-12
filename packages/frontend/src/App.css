@@ -28,3 +28,9 @@ body {
   display: flex;
   gap: 0.5rem;
 }
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
