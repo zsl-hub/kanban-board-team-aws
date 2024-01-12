@@ -7,14 +7,12 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import columns from "../config/columns";
+import colors from "../config/colors";
 import Column from "./components/Column";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
-  const value = useColorModeValue(
-    "rgba(235, 236, 240, 1)",
-    "rgba(45, 55, 72, 0.4)"
-  );
+  const value = useColorModeValue(colors.lightGray, colors.darkGray);
 
   return (
     <>
