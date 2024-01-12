@@ -5,7 +5,7 @@ import Column from "./components/Column";
 
 function App() {
   return (
-    <Grid templateColumns={`repeat(${columns.length}, 320px)`} className="grid">
+    <Grid templateColumns={`repeat(${columns.length}, 345px)`} className="grid">
       {columns.map((col) => (
         <Column key={col.id} column={col} />
       ))}

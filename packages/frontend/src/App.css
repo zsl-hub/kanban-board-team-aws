@@ -21,7 +21,7 @@ body {
   background-color: rgb(235, 236, 240);
   border-radius: 15px;
   padding: 1em;
-  height: calc(100dvh - 75px);
+  height: calc(100dvh - 4em);
 }
 
 .column-header {
