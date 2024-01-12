@@ -1,8 +1,4 @@
-interface Color {
-  [key: string]: string;
-}
-
-const colors: Color = {
+const colors = {
   red: "#da3633",
   green: "#228435",
   brown: "#9b6803",
