@@ -1,15 +1,13 @@
 import { Button, Card, CardHeader, GridItem, Text } from "@chakra-ui/react";
 import Icon from "./Icon";
 
-interface Column {
-  id: number;
-  description: string;
-  statusColor: string;
-}
-
-interface ColumnProps {
-  column: Column;
-}
+type ColumnProps = {
+  column: {
+    id: number;
+    description: string;
+    statusColor: string;
+  };
+};
 
 export default function Column({ column }: ColumnProps) {
   return (
