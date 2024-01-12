@@ -10,8 +10,8 @@ export default {
     };
   },
   stacks(app) {
-    app.stack(AppStack);
     app.stack(StorageStack);
+    app.stack(AppStack);
     if (app.stage !== "prod") {
       app.setDefaultRemovalPolicy("destroy");
     }
