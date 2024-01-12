@@ -5,6 +5,7 @@ import {
   GridItem,
   Text,
   useDisclosure,
+  LightMode,
 } from "@chakra-ui/react";
 import Icon from "./Icon";
 import ModalAddTask from "./ModalAddTask";
@@ -17,11 +18,15 @@ type ColumnProps = {
   };
 };
 
-export default function Column({ column }: ColumnProps) {
+type Props = {
+  bgColor: string;
+} & ColumnProps;
+
+export default function Column({ column, bgColor }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <GridItem className="column">
+    <GridItem bg={bgColor} className="column">
       <Card w="full">
         <CardHeader className="column-header">
           <Icon color={column.statusColor} />
@@ -29,9 +34,11 @@ export default function Column({ column }: ColumnProps) {
         </CardHeader>
       </Card>
 
-      <Button onClick={onOpen} colorScheme="teal" w="5">
-        +
-      </Button>
+      <LightMode>
+        <Button onClick={onOpen} colorScheme="teal" w="5">
+          +
+        </Button>
+      </LightMode>
 
       <ModalAddTask
         isOpen={isOpen}
