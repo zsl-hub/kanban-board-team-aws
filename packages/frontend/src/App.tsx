@@ -1,6 +1,7 @@
 import "./App.css";
 import {
   Grid,
+  Flex,
   Button,
   useColorMode,
   useColorModeValue,
@@ -17,11 +18,11 @@ function App() {
 
   return (
     <>
-      <div>
+      <Flex>
         <Button onClick={toggleColorMode}>
           {colorMode === "light" ? "🌘" : "🌞"}
         </Button>
-      </div>
+      </Flex>
       <Grid
         templateColumns={`repeat(${columns.length}, 345px)`}
         className="grid"
