@@ -30,7 +30,9 @@ export default function Column({ column, bgColor }: Props) {
       <Card w="full">
         <CardHeader className="column-header">
           <Icon color={column.statusColor} />
-          <Text as="b">{column.description}</Text>
+          <Text as="b" fontSize={["sm", "md", "lg", "xl"]}>
+            {column.description}
+          </Text>
         </CardHeader>
       </Card>
 
