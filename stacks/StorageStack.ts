@@ -1,7 +1,7 @@
 import { Api, StackContext, Table } from "sst/constructs"
 
 export function StorageStack({stack}: StackContext){
-  const table = new Table(stack, "Tasks", {
+  const table = new Table(stack, "Tasks_v2", {
     fields: {
       id: "string",
       name: "string",
