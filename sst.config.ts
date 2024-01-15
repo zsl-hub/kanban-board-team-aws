@@ -1,6 +1,7 @@
 import { SSTConfig } from "sst";
 import { AppStack } from "./stacks/AppStack";
 import { StorageStack } from "./stacks/StorageStack";
+import 'dotenv/config'
 
 export default {
   config(_input) {
@@ -12,8 +13,6 @@ export default {
   stacks(app) {
     app.stack(StorageStack);
     app.stack(AppStack);
-    if (app.stage !== "prod") {
-      app.setDefaultRemovalPolicy("destroy");
-    }
+    app.setDefaultRemovalPolicy(process.env.DEFAULT_REMOVAL_POLICY || app.mode === "dev" ? "destroy" : "retain");
   }
 } satisfies SSTConfig;
