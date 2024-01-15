@@ -12,18 +12,27 @@ import Icon from "./Icon";
 import ModalAddTask from "./ModalAddTask";
 import Tasks from "./Tasks";
 
-type ColumnProps = {
-  column: {
-    id: number;
-    description: string;
-    statusColor: string;
-  };
-};
+interface Column {
+  id: number;
+  description: string;
+  statusColor: string;
+}
 
-type Props = {
+interface Task {
+  id: number;
+  name: string;
+  description: string;
+  columnId: number;
+}
+
+interface ColumnProps {
+  column: Column;
+}
+
+interface Props extends ColumnProps {
   bgColor: string;
-  tasks: Array<object>;
-} & ColumnProps;
+  tasks: Task[];
+}
 
 export default function Column({ column, bgColor, tasks }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -6,6 +6,7 @@ const colors = {
   purple: "rgba(135, 86, 225, 1)",
   lightGray: "rgba(235, 236, 240, 1)",
   darkGray: "rgba(45, 55, 72, 0.4)",
+  veryDarkGray: "rgba(34, 41, 55, 1)",
 };
 
 export default colors;
