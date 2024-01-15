@@ -1,17 +1,11 @@
+import { intConfig } from "./int";
 import { devConfig } from "./dev";
-import { envConfig } from "./env";
 
 export function getStageConfig(stage : string) {
     switch(stage) {
-        case "dev":
-            return devConfig
-        case "ryba":
-            return envConfig
-        case "Piotr":
-            return envConfig
-        case "milosz":
-            return envConfig
+        case "int":
+            return intConfig
         default:
-            return envConfig
+            return devConfig
     }
 }

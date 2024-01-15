@@ -2,6 +2,7 @@ import { SSTConfig } from "sst";
 import { AppStack } from "./stacks/AppStack";
 import { StorageStack } from "./stacks/StorageStack";
 import { getStageConfig } from "./conf/getStageConfig";
+import { StageConfig } from "./conf/stageConfig";
 
 export default {
   config(_input) {
@@ -11,8 +12,9 @@ export default {
     };
   },
   stacks(app) {
+    const stageConfig : StageConfig = getStageConfig(app.stage);
     app.stack(StorageStack);
     app.stack(AppStack);
-    app.setDefaultRemovalPolicy(getStageConfig(app.stage).DEFAULT_REMOVAL_POLICY);
+    app.setDefaultRemovalPolicy(stageConfig.DEFAULT_REMOVAL_POLICY);
   }
 } satisfies SSTConfig;
