@@ -16,6 +16,7 @@ function createApi(stack: Stack) {
     routes: {
       "POST /task/add": "packages/functions/src/lambda/task/add/lambda.main",
       "GET /task/get-all": "packages/functions/src/lambda/task/get-all/lambda.main",
+      "DELETE /task/delete": "packages/functions/src/lambda/task/delete/lambda.main",
     },
   });
 }
