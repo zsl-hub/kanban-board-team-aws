@@ -1,4 +1,4 @@
-import { ApiResponse } from "/home/user/kanban-board-team-aws/packages/functions/src/model/responses";
+import { ApiResponse } from "src/model/responses";
 
 
 
