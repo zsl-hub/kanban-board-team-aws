@@ -26,6 +26,18 @@
   gap: 0.5rem;
 }
 
+.colored-header {
+  background: linear-gradient(
+    90deg,
+    rgb(255, 230, 0) 0%,
+    rgba(255, 184, 0, 1) 46%,
+    rgba(255, 162, 0, 1) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .flex {
   display: flex;
   flex-direction: column;

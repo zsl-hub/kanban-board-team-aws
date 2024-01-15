@@ -3,6 +3,7 @@ import {
   Grid,
   Flex,
   Heading,
+  Text,
   Button,
   useColorMode,
   useColorModeValue,
@@ -92,7 +93,10 @@ function App() {
   return (
     <>
       <Flex justify="space-between" align="center">
-        <Heading size={["md", "lg", "xl"]}>Kanban Board</Heading>
+        <Heading display="flex" gap="1rem" size={["md", "lg", "xl"]}>
+          <Text>Kanban Board</Text>
+          <Text className="colored-header">AWS</Text>
+        </Heading>
 
         <Button onClick={toggleColorMode}>
           {colorMode === "light" ? "🌘" : "🌞"}
