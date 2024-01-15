@@ -1,6 +1,7 @@
 import { SSTConfig } from "sst";
 import { AppStack } from "./stacks/AppStack";
 import { StorageStack } from "./stacks/StorageStack";
+import { getStageConfig } from "./conf/getStageConfig";
 
 export default {
   config(_input) {
@@ -12,8 +13,6 @@ export default {
   stacks(app) {
     app.stack(StorageStack);
     app.stack(AppStack);
-    if (app.stage !== "prod") {
-      app.setDefaultRemovalPolicy("destroy");
-    }
+    app.setDefaultRemovalPolicy(getStageConfig(app.stage).DEFAULT_REMOVAL_POLICY);
   }
 } satisfies SSTConfig;
