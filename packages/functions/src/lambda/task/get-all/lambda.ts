@@ -1,44 +1,13 @@
+import { DynamoDB } from "aws-sdk";
+import { Table } from "sst/node/table";
 import internal from "stream";
-import { ApiResponse } from "../../../model/responses";
+import { ApiResponse } from "src/model/responses";
 
-import { Task } from "../../../model/Task";
+import { Task } from "src/model/Task";
+import { TaskRepository } from "src/repositories/taskRepository";
 
 export async function main() {
-    
-    const result = {
-        Items: [
-            {
-                id : "2137",
-                name : "Cokolwiek",
-                desc : "Opis",
-                columnId : 1
-            },
-            {
-                id : "2138",
-                name : "Cokolwiek",
-                desc : "Opis",
-                columnId : 2
-            },
-            {
-                id : "2139",
-                name : "Cokolwiek",
-                desc : "Opis",
-                columnId : 3
-            },
-            {
-                id : "21310",
-                name : "Cokolwiek",
-                desc : "Opis",
-                columnId : 2
-            },
-            {
-                id : "21311",
-                name : "Cokolwiek",
-                desc : "Opis",
-                columnId : 1
-            },
-        ]
-    } 
 
+    const result = await TaskRepository.getAll()
     return ApiResponse.ok(result);
 }
