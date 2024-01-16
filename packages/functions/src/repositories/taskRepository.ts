@@ -1,5 +1,6 @@
 import { DynamoDB } from "aws-sdk";
 import { Table } from "sst/node/table";
+import { Task } from "src/model/Task";
 
 export class TaskRepository{
     private dynamoDb = new DynamoDB.DocumentClient();
@@ -8,9 +9,8 @@ export class TaskRepository{
         const params = {
             TableName: Table.Tasks.tableName,
         };
-        const result = await this.dynamoDb.scan(params).promise();
+        const result = (await this.dynamoDb.scan(params).promise()).Items?.map(e=>Task.parse(e))
         return result
-        // TODO: Does not return any data
     }
 
     public async add(id:string, name:string, description:string, columnId:number){ 
@@ -33,10 +33,7 @@ export class TaskRepository{
                 id: id,
             }
         };
-        return await this.dynamoDb.delete(params, function(err, data) {
-            if (err) return err; // an error occurred
-            else     return data;           // successful response
-          }).promise();
-        // TODO: on success does not return any data (but idk if it should)
+        return await this.dynamoDb.delete(params).promise();
+        // TODO: does not return any data
     }
 }
