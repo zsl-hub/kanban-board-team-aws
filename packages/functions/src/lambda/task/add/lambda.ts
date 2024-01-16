@@ -16,7 +16,8 @@ export async function main(e: APIGatewayProxyEventV2) {
         return ApiResponse.ok("Added task to the table.")
     }catch(err){
         if (err instanceof z.ZodError) {
-            return ApiResponse.not_found(err.issues.map(e=>`${e.message} at field ${e.path}`));
+            const res = err.issues.map(e=>`${e.message} at field ${e.path}`)
+            return ApiResponse.not_found(res);
         }
     }
 }
