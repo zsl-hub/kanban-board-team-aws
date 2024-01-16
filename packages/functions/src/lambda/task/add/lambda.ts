@@ -12,10 +12,11 @@ export async function main(e: APIGatewayProxyEventV2) {
         body.id = uuidv4();
         const task = Task.parse(body)
         
-        return await getTaskRepository().add(task);
+        await getTaskRepository().add(task);
+        return ApiResponse.ok("Added task to the table.")
     }catch(err){
         if (err instanceof z.ZodError) {
-            return (err.issues.map(e=>`${e.message} at field ${e.path}`));
-          }
+            return ApiResponse.not_found(err.issues.map(e=>`${e.message} at field ${e.path}`));
+        }
     }
 }
