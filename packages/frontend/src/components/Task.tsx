@@ -27,10 +27,10 @@ export default function Task({ task }: TaskProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const value = useColorModeValue(colors.lightGray, colors.veryDarkGray);
 
-  const optimaldescriptionLength = 50;
-  const descriptionLength = task.description.length;
-  const shortenedDescription = task.description
-    .split(" ")
+  const optimalDescriptionLength = 80;
+  const descriptionLength = task?.description?.length ?? 0;
+  const shortenedDescription = task?.description
+    ?.split(" ")
     .slice(0, 6)
     .join(" ");
 
@@ -63,14 +63,14 @@ export default function Task({ task }: TaskProps) {
         gap="0.5rem"
       >
         <Text>
-          {descriptionLength > optimaldescriptionLength
+          {descriptionLength > optimalDescriptionLength
             ? isExpanded
               ? task.description
               : shortenedDescription
             : task.description}
         </Text>
 
-        {descriptionLength > optimaldescriptionLength ? (
+        {descriptionLength > optimalDescriptionLength ? (
           <Button
             size="s"
             fontSize="s"
