@@ -1,6 +1,7 @@
 import { DynamoDB } from "aws-sdk";
 import { Table } from "sst/node/table";
 import { Task } from "src/model/Task";
+import { z } from "zod"
 
 export class TaskRepository{
     private dynamoDb = new DynamoDB.DocumentClient();
@@ -13,15 +14,10 @@ export class TaskRepository{
         return result
     }
 
-    public async add(id:string, name:string, description:string, columnId:number){ 
+    public async add(task : z.infer<typeof Task>){ 
         const params = {
             TableName: Table.Tasks.tableName,
-            Item:{
-                id: id,
-                name: name,
-                description: description,
-                columnId: columnId,
-            }
+            Item:task,
         };
         return await this.dynamoDb.put(params).promise();
     }
