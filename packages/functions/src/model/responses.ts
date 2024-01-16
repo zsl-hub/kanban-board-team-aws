@@ -5,4 +5,15 @@ export class ApiResponse {
         statusCode: 200,
         }
     }
+    public static not_found() {
+        return {
+            statusCode: 404,
+            }
+    }
+    public static bad_request() {
+        return {
+            body : 400,
+            statusCode : 400
+        }
+    }
 }
