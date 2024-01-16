@@ -1,14 +1,14 @@
 import "./App.css";
 import {
-  Grid,
   Flex,
   Heading,
+  Text,
   Button,
   useColorMode,
   useColorModeValue,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import columns from "../config/columns";
-import arraySize from "../config/optimalColumnArraySize";
 import colors from "../config/colors";
 import Column from "./components/Column";
 
@@ -92,20 +92,18 @@ function App() {
   return (
     <>
       <Flex justify="space-between" align="center">
-        <Heading size={["md", "lg", "xl"]}>Kanban Board</Heading>
+        <Heading display="flex" gap="1rem" size={["md", "lg", "xl"]}>
+          <Text>Kanban Board</Text>
+          <Text className="colored-header">AWS</Text>
+        </Heading>
 
         <Button onClick={toggleColorMode}>
           {colorMode === "light" ? "🌘" : "🌞"}
         </Button>
       </Flex>
-      <Grid
-        templateColumns={[
-          "repeat(1, 1fr)",
-          "repeat(2, 1fr)",
-          "repeat(3, 1fr)",
-          "repeat(4, 1fr)",
-          `repeat(${columns.length >= arraySize ? 5 : 3}, 1fr)`,
-        ]}
+      <SimpleGrid
+        columns={{ lg: 5, md: 3, sm: 1 }}
+        spacing="1rem"
         className="grid"
       >
         {columns.map((col) => {
@@ -121,7 +119,7 @@ function App() {
             />
           );
         })}
-      </Grid>
+      </SimpleGrid>
     </>
   );
 }
