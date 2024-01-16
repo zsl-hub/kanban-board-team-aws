@@ -13,7 +13,8 @@ export async function main(e: APIGatewayProxyEventV2) {
         const task = Task.parse(body)
         
         await getTaskRepository().add(task);
-        return ApiResponse.ok("Added task to the table.")
+        const res = "Added task to the table."
+        return ApiResponse.ok(res)
     }catch(err){
         if (err instanceof z.ZodError) {
             const res = err.issues.map(e=>`${e.message} at field ${e.path}`)
