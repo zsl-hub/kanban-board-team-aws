@@ -20,14 +20,10 @@ const addTask = async (task:Task) => {
 } 
 
 const deleteTask = async (id:string) => {
-    const params = {
-        id: id,
-    }
     const options = {
         method: "DELETE",
-        body: JSON.stringify(params)
     }
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/task/delete`,options)
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/task/delete?id=${id}`,options)
     return await response.text()
 }
 
