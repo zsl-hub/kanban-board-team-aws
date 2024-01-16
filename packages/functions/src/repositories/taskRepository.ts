@@ -2,9 +2,9 @@ import { DynamoDB } from "aws-sdk";
 import { Table } from "sst/node/table";
 
 export class TaskRepository{
-    private static dynamoDb = new DynamoDB.DocumentClient();
+    private dynamoDb = new DynamoDB.DocumentClient();
 
-    public static async getAll(){ 
+    public async getAll(){ 
         const params = {
             TableName: Table.Tasks.tableName,
         };
@@ -13,7 +13,7 @@ export class TaskRepository{
         // TODO: Does not return any data
     }
 
-    public static async add(id:string, name:string, description:string, columnId:number){ 
+    public async add(id:string, name:string, description:string, columnId:number){ 
         const params = {
             TableName: Table.Tasks.tableName,
             Item:{
@@ -26,7 +26,7 @@ export class TaskRepository{
         return await this.dynamoDb.put(params).promise();
     }
 
-    public static async delete(id:string){ 
+    public async delete(id:string){ 
         const params = {
             TableName: Table.Tasks.tableName,
             Key: {
