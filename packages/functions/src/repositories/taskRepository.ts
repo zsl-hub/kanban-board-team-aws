@@ -14,6 +14,18 @@ export class TaskRepository{
         return result
     }
 
+    public async queryById(id:string){
+        const params = {
+            TableName: Table.Tasks.tableName,
+            KeyConditionExpression: 'id = :id',
+            ExpressionAttributeValues: {
+                ':id': id,
+            }
+        }
+        const result = (await this.dynamoDb.query(params).promise()).Items?.map(e=>Task.parse(e))
+        return result
+    }
+
     public async add(task : z.infer<typeof Task>){ 
         const params = {
             TableName: Table.Tasks.tableName,
@@ -30,6 +42,5 @@ export class TaskRepository{
             }
         };
         return await this.dynamoDb.delete(params).promise();
-        // TODO: does not return any data
     }
 }
