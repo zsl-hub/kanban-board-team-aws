@@ -1,4 +1,6 @@
-import { ApiResponse } from "../../../model/responses";
+import { ApiResponse } from "src/model/responses";
+
+
 
 export async function main(e: any) {
     let body = e.queryStringParameters

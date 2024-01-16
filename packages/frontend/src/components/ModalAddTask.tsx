@@ -10,6 +10,7 @@ import {
   Input,
   Textarea,
   Select,
+  LightMode,
 } from "@chakra-ui/react";
 import columns from "../../config/columns";
 
@@ -48,9 +49,11 @@ export default function ModalAddTask({
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="teal" onClick={onClose}>
-            Add
-          </Button>
+          <LightMode>
+            <Button colorScheme="teal" onClick={onClose}>
+              Add
+            </Button>
+          </LightMode>
         </ModalFooter>
       </ModalContent>
     </Modal>

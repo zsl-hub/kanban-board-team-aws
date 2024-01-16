@@ -1,37 +1,60 @@
 import {
+  Flex,
   Button,
   Card,
   CardHeader,
   GridItem,
   Text,
   useDisclosure,
+  LightMode,
 } from "@chakra-ui/react";
 import Icon from "./Icon";
 import ModalAddTask from "./ModalAddTask";
+import Tasks from "./Tasks";
 
-type ColumnProps = {
-  column: {
-    id: number;
-    description: string;
-    statusColor: string;
-  };
-};
+interface Column {
+  id: number;
+  description: string;
+  statusColor: string;
+}
 
-export default function Column({ column }: ColumnProps) {
+interface Task {
+  id: number;
+  name: string;
+  description: string;
+  columnId: number;
+}
+
+interface ColumnProps {
+  column: Column;
+}
+
+interface Props extends ColumnProps {
+  bgColor: string;
+  tasks: Task[];
+}
+
+export default function Column({ column, bgColor, tasks }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <GridItem className="column">
-      <Card w="full">
-        <CardHeader className="column-header">
-          <Icon color={column.statusColor} />
-          <Text as="b">{column.description}</Text>
-        </CardHeader>
-      </Card>
+    <GridItem bg={bgColor} className="column">
+      <Flex flexDirection="column" gap="1rem">
+        <Card w="full">
+          <CardHeader className="column-header">
+            <Icon color={column.statusColor} />
+            <Text as="b">{column.description}</Text>
+          </CardHeader>
+        </Card>
 
-      <Button onClick={onOpen} colorScheme="teal" w="5">
-        +
-      </Button>
+        <Tasks tasks={tasks} />
+      </Flex>
+
+      <LightMode>
+        <Button onClick={onOpen} colorScheme="teal" w="5">
+          +
+        </Button>
+      </LightMode>
 
       <ModalAddTask
         isOpen={isOpen}
