@@ -15,7 +15,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
   border-radius: 15px;
   padding: 1em;
   height: calc(100dvh - 6rem);
