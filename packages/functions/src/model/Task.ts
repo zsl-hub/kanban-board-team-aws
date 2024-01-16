@@ -1,17 +1,10 @@
 import { z } from "zod"
 
-interface Task{
-    id : string,
-    name : string,
-    description : string,
-    columnId : number, 
-}
-
-const taskSchema : z.ZodType<Task> = z.object({
-    id : z.string(),
+const Task = z.object({
+    id : z.string().uuid(),
     name : z.string(),
     description : z.string(),
     columnId : z.number(), 
 });
 
-export {Task, taskSchema}
+export {Task}
