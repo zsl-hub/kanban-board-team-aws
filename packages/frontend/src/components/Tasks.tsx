@@ -14,7 +14,7 @@ interface TaskProps {
 
 export default function Tasks({ tasks }: TaskProps) {
   return (
-    <Flex flexDirection="column" gap="0.75rem">
+    <Flex flexDirection="column" gap="0.75rem" maxH="800px" overflowY="auto">
       {tasks.map((task) => (
         <TaskComponent key={task.id} task={task} />
       ))}

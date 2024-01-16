@@ -5,9 +5,11 @@ import {
   Button,
   CardBody,
   useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import colors from "../../config/colors";
+import ModalRemoveTask from "./ModalRemoveTask";
 
 interface Task {
   id: number;
@@ -22,6 +24,7 @@ interface TaskProps {
 
 export default function Task({ task }: TaskProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const value = useColorModeValue(colors.lightGray, colors.veryDarkGray);
 
   const optimaldescriptionLength = 50;
@@ -46,9 +49,11 @@ export default function Task({ task }: TaskProps) {
       >
         <Text>{task.name}</Text>
 
-        <Button variant="outline" size="xs">
+        <Button variant="outline" size="xs" onClick={onOpen}>
           X
         </Button>
+
+        <ModalRemoveTask isOpen={isOpen} onClose={onClose} />
       </CardHeader>
 
       <CardBody
