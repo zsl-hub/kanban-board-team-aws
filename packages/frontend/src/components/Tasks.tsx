@@ -8,11 +8,11 @@ interface Task {
   columnId: number;
 }
 
-interface TaskProps {
-  tasks: Task[];
+interface TasksProps {
+  tasksForColumn: Task[];
 }
 
-export default function Tasks({ tasks }: TaskProps) {
+export default function Tasks({ tasksForColumn }: TasksProps) {
   return (
     <Flex
       flexDirection="column"
@@ -20,7 +20,7 @@ export default function Tasks({ tasks }: TaskProps) {
       maxH={{ lg: "800px", md: "320px", sm: "320px" }}
       overflowY="auto"
     >
-      {tasks.map((task) => (
+      {tasksForColumn.map((task) => (
         <TaskComponent key={task.id} task={task} />
       ))}
     </Flex>

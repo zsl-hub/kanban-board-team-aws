@@ -15,17 +15,23 @@ import Column from "./components/Column";
 import { fetchAllTasks } from "./api/endpoints";
 import { useEffect, useState } from "react";
 
+interface Task {
+  id: number;
+  title: string;
+  description: string;
+  columnId: number;
+}
+
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
   const value = useColorModeValue(colors.lightGray, colors.darkGray);
 
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
     const getTasks = async () => {
       const fetchedTasks = await fetchAllTasks();
       setTasks(fetchedTasks);
-      console.log(fetchedTasks);
     };
     getTasks();
   }, []);
@@ -55,7 +61,9 @@ function App() {
             <Column
               key={col.id}
               column={col}
-              tasks={tasksForColumn}
+              tasks={tasks}
+              setTasks={setTasks}
+              tasksForColumn={tasksForColumn}
               bgColor={value}
             />
           );

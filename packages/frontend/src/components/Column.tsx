@@ -32,9 +32,17 @@ interface ColumnProps {
 interface Props extends ColumnProps {
   bgColor: string;
   tasks: Task[];
+  tasksForColumn: Task[];
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
-export default function Column({ column, bgColor, tasks }: Props) {
+export default function Column({
+  column,
+  bgColor,
+  tasksForColumn,
+  tasks,
+  setTasks,
+}: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -47,7 +55,7 @@ export default function Column({ column, bgColor, tasks }: Props) {
           </CardHeader>
         </Card>
 
-        <Tasks tasks={tasks} />
+        <Tasks tasksForColumn={tasksForColumn} />
       </Flex>
 
       <LightMode>
@@ -59,7 +67,9 @@ export default function Column({ column, bgColor, tasks }: Props) {
       <ModalAddTask
         isOpen={isOpen}
         onClose={onClose}
-        curColumn={column.description}
+        curColumn={column}
+        tasks={tasks}
+        setTasks={setTasks}
       />
     </GridItem>
   );
