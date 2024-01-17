@@ -1,5 +1,5 @@
 import { APIGatewayProxyEventV2 } from "aws-lambda";
-import { DeleteTaskDTO } from "./types";
+import { DeleteTaskEvent } from "./types";
 import { ApiResponse } from "src/model/responses";
 import { getTaskRepository } from "src/repositories/taskRepository";
 import { ApiError } from "src/model/errors";
@@ -8,7 +8,7 @@ const taskRepository = getTaskRepository()
 
 function getId(e : APIGatewayProxyEventV2){
     try{
-        return DeleteTaskDTO.parse({id: e?.queryStringParameters?.id}).id 
+        return DeleteTaskEvent.parse(e).queryStringParameters.id 
     }catch(err){
         if (err instanceof z.ZodError) {
             const res = err.issues.map(e=>`${e.message} at field ${e.path}`)
@@ -31,6 +31,8 @@ export async function main (e: APIGatewayProxyEventV2) {
     }catch(err){
         if (err instanceof ApiError) {
             return err.getApiResponse()
+        }else{
+            throw err
         }
     }   
 }    

@@ -5,7 +5,6 @@ import { z } from "zod"
 
 export class TaskRepository{
     private dynamoDb = new DynamoDB.DocumentClient();
-
     public async getAll(){ 
         const params = {
             TableName: Table.Tasks.tableName,
@@ -23,7 +22,7 @@ export class TaskRepository{
             }
         }
         const dbResponse = await this.dynamoDb.query(params).promise()
-        if(dbResponse.Count>1) console.warn(`FOUND MORE THAN ONE ITEMS WITH ID ${id}`);
+        if(dbResponse.Count>1) console.log(`FOUND MORE THAN ONE ITEMS WITH ID ${id}`);
         const result = dbResponse.Items?.map(e=>Task.parse(e))[0]
         return result
     }
