@@ -11,6 +11,7 @@ import {
   Textarea,
   Select,
   LightMode,
+  FormControl,
 } from "@chakra-ui/react";
 import columns from "../../config/columns";
 import { useState } from "react";
@@ -37,8 +38,14 @@ export default function ModalAddTask({
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [selectedColumnId, setSelectedColumnId] = useState(curColumn.id);
+  const [isNameEmpty, setIsNameEmpty] = useState(false);
 
   function handleAddTask() {
+    if (!name) {
+      setIsNameEmpty(true);
+      return;
+    }
+
     const newTask = {
       id: uuidv4(),
       name: name,
@@ -53,22 +60,32 @@ export default function ModalAddTask({
     setName("");
     setDescription("");
     setSelectedColumnId(curColumn.id);
+    setIsNameEmpty(false);
     onClose();
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+    <Modal
+      isOpen={isOpen}
+      onClose={() => {
+        setIsNameEmpty(false);
+        onClose();
+      }}
+      isCentered
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add new task</ModalHeader>
         <ModalCloseButton />
         <ModalBody className="flex">
-          <Input
-            variant="filled"
-            placeholder="task name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <FormControl isInvalid={isNameEmpty}>
+            <Input
+              variant="filled"
+              placeholder="task name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </FormControl>
 
           <Textarea
             variant="filled"
