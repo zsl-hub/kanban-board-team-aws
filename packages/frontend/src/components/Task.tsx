@@ -28,7 +28,7 @@ export default function Task({ task, tasks, setTasks }: TaskProps) {
   const descriptionLength = task?.description?.length ?? 0;
   const shortenedDescription = task?.description
     ?.split(" ")
-    .slice(0, 6)
+    .slice(0, 15)
     .join(" ");
 
   function handleExpand() {
@@ -74,7 +74,7 @@ export default function Task({ task, tasks, setTasks }: TaskProps) {
               : task.description}
           </Text>
 
-          {descriptionLength > optimalDescriptionLength ? (
+          {descriptionLength > optimalDescriptionLength && (
             <Button
               size="s"
               fontSize="s"
@@ -84,8 +84,6 @@ export default function Task({ task, tasks, setTasks }: TaskProps) {
             >
               {isExpanded ? "show less" : "show more"}
             </Button>
-          ) : (
-            ""
           )}
         </CardBody>
       )}
