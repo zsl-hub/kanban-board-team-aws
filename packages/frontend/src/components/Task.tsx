@@ -11,15 +11,10 @@ import { useState } from "react";
 import colors from "../../config/colors";
 import ModalRemoveTask from "./ModalRemoveTask";
 
-interface Task {
-  id: number;
-  name: string;
-  description: string;
-  columnId: number;
-}
+import { TaskInterface } from "../types";
 
 interface TaskProps {
-  task: Task;
+  task: TaskInterface;
 }
 
 export default function Task({ task }: TaskProps) {

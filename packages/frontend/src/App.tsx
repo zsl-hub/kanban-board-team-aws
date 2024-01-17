@@ -14,19 +14,13 @@ import Column from "./components/Column";
 
 import { fetchAllTasks } from "./api/endpoints";
 import { useEffect, useState } from "react";
-
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  columnId: number;
-}
+import { TaskInterface } from "./types";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
   const value = useColorModeValue(colors.lightGray, colors.darkGray);
 
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<TaskInterface[]>([]);
 
   useEffect(() => {
     const getTasks = async () => {

@@ -12,28 +12,14 @@ import Icon from "./Icon";
 import ModalAddTask from "./ModalAddTask";
 import Tasks from "./Tasks";
 
-interface Column {
-  id: number;
-  description: string;
-  statusColor: string;
-}
-
-interface Task {
-  id: number;
-  name: string;
-  description: string;
-  columnId: number;
-}
+import { TaskInterface, ColumnInterface } from "../types";
 
 interface ColumnProps {
-  column: Column;
-}
-
-interface Props extends ColumnProps {
+  column: ColumnInterface;
   bgColor: string;
-  tasks: Task[];
-  tasksForColumn: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  tasks: TaskInterface[];
+  tasksForColumn: TaskInterface[];
+  setTasks: React.Dispatch<React.SetStateAction<TaskInterface[]>>;
 }
 
 export default function Column({
@@ -42,7 +28,7 @@ export default function Column({
   tasksForColumn,
   tasks,
   setTasks,
-}: Props) {
+}: ColumnProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (

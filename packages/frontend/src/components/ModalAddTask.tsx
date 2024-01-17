@@ -15,11 +15,16 @@ import {
 import columns from "../../config/columns";
 import { useState } from "react";
 import { addTask } from "../api/endpoints";
+import { v4 as uuidv4 } from "uuid";
+
+import { TaskInterface, ColumnInterface } from "../types";
 
 interface ModalAddTaskProps {
   isOpen: boolean;
   onClose: () => void;
-  curColumn: string;
+  curColumn: ColumnInterface;
+  tasks: TaskInterface[];
+  setTasks: React.Dispatch<React.SetStateAction<TaskInterface[]>>;
 }
 
 export default function ModalAddTask({
@@ -31,23 +36,23 @@ export default function ModalAddTask({
 }: ModalAddTaskProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [column, setColumn] = useState(curColumn);
+  const [selectedColumnId, setSelectedColumnId] = useState(curColumn.id);
 
   function handleAddTask() {
     const newTask = {
+      id: uuidv4(),
       name: name,
       description: description,
-      columnId: column.id,
+      columnId: selectedColumnId,
     };
-    addTask(newTask)
-      .then((res) => console.log(res), setTasks([...tasks, newTask]))
-      .catch((err) => console.error(err));
 
-    console.log(newTask);
+    addTask(newTask)
+      .then(() => setTasks([...tasks, newTask]))
+      .catch((err) => console.error(err));
 
     setName("");
     setDescription("");
-    setColumn(curColumn);
+    setSelectedColumnId(curColumn.id);
     onClose();
   }
 
@@ -74,17 +79,14 @@ export default function ModalAddTask({
 
           <Select
             variant="filled"
-            value={column}
-            onChange={(e) => setColumn(e.target.value)}
+            value={selectedColumnId}
+            onChange={(e) => setSelectedColumnId(Number(e.target.value))}
           >
-            <option>{curColumn.description}</option>
-            {columns
-              .filter((col) => col.description !== curColumn.description)
-              .map((col) => (
-                <option key={col.id} value={col.description}>
-                  {col.description}
-                </option>
-              ))}
+            {columns.map((col) => (
+              <option key={col.id} value={col.id}>
+                {col.description}
+              </option>
+            ))}
           </Select>
         </ModalBody>
 

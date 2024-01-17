@@ -1,15 +1,9 @@
 import { Flex } from "@chakra-ui/react";
 import TaskComponent from "./Task";
-
-interface Task {
-  id: number;
-  name: string;
-  description: string;
-  columnId: number;
-}
+import { TaskInterface } from "../types";
 
 interface TasksProps {
-  tasksForColumn: Task[];
+  tasksForColumn: TaskInterface[];
 }
 
 export default function Tasks({ tasksForColumn }: TasksProps) {
