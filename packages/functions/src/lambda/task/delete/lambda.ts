@@ -1,9 +1,14 @@
 import { APIGatewayProxyEventV2 } from "aws-lambda";
 import { ApiResponse } from "src/model/responses";
+import { TaskRepository } from "src/repositories/taskRepository";
+
+const getTaskRepository = () => new TaskRepository();
 
 export async function main (e: APIGatewayProxyEventV2) {
 
-    const id = e.body!==undefined?JSON.parse(e.body)?.id:undefined
 
-    return ApiResponse.ok(`Deleted task with id ${id} (clearly theoritically).`);
+    const id = e?.queryStringParameters?.id ?? ""
+
+    const response = await getTaskRepository().delete(id)
+    return ApiResponse.ok(response);
 }
