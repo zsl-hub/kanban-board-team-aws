@@ -41,7 +41,11 @@ export default function Column({
           </CardHeader>
         </Card>
 
-        <Tasks tasksForColumn={tasksForColumn} />
+        <Tasks
+          tasksForColumn={tasksForColumn}
+          tasks={tasks}
+          setTasks={setTasks}
+        />
       </Flex>
 
       <LightMode>

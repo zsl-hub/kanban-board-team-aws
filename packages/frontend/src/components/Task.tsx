@@ -15,9 +15,11 @@ import { TaskInterface } from "../types";
 
 interface TaskProps {
   task: TaskInterface;
+  tasks: TaskInterface[];
+  setTasks: React.Dispatch<React.SetStateAction<TaskInterface[]>>;
 }
 
-export default function Task({ task }: TaskProps) {
+export default function Task({ task, tasks, setTasks }: TaskProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const value = useColorModeValue(colors.lightGray, colors.veryDarkGray);
@@ -48,7 +50,13 @@ export default function Task({ task }: TaskProps) {
           X
         </Button>
 
-        <ModalRemoveTask isOpen={isOpen} onClose={onClose} />
+        <ModalRemoveTask
+          isOpen={isOpen}
+          onClose={onClose}
+          task={task}
+          tasks={tasks}
+          setTasks={setTasks}
+        />
       </CardHeader>
 
       {task?.description && (

@@ -4,9 +4,11 @@ import { TaskInterface } from "../types";
 
 interface TasksProps {
   tasksForColumn: TaskInterface[];
+  tasks: TaskInterface[];
+  setTasks: React.Dispatch<React.SetStateAction<TaskInterface[]>>;
 }
 
-export default function Tasks({ tasksForColumn }: TasksProps) {
+export default function Tasks({ tasksForColumn, tasks, setTasks }: TasksProps) {
   return (
     <Flex
       flexDirection="column"
@@ -15,7 +17,12 @@ export default function Tasks({ tasksForColumn }: TasksProps) {
       overflowY="auto"
     >
       {tasksForColumn.map((task) => (
-        <TaskComponent key={task.id} task={task} />
+        <TaskComponent
+          key={task.id}
+          task={task}
+          tasks={tasks}
+          setTasks={setTasks}
+        />
       ))}
     </Flex>
   );
