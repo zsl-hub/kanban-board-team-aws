@@ -18,7 +18,7 @@ export async function main(e: APIGatewayProxyEventV2) {
     }catch(err){
         if (err instanceof z.ZodError) {
             const res = err.issues.map(e=>`${e.message} at field ${e.path}`)
-            return ApiResponse.not_found(res);
+            return ApiResponse.notFound(res);
         }
     }
 }

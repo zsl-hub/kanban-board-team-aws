@@ -14,7 +14,7 @@ export class TaskRepository{
         return result
     }
 
-    public async queryById(id:string){
+    public async getById(id:string){
         const params = {
             TableName: Table.Tasks.tableName,
             KeyConditionExpression: 'id = :id',
@@ -22,7 +22,9 @@ export class TaskRepository{
                 ':id': id,
             }
         }
-        const result = (await this.dynamoDb.query(params).promise()).Items?.map(e=>Task.parse(e))
+        const dbResponse = await this.dynamoDb.query(params).promise()
+        if(dbResponse.Count>1) console.warn(`FOUND MORE THAN ONE ITEMS WITH ID ${id}`);
+        const result = dbResponse.Items?.map(e=>Task.parse(e))[0]
         return result
     }
 
@@ -44,3 +46,5 @@ export class TaskRepository{
         return await this.dynamoDb.delete(params).promise();
     }
 }
+
+export const getTaskRepository = () => new TaskRepository();
