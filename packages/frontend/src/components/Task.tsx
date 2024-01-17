@@ -51,34 +51,36 @@ export default function Task({ task }: TaskProps) {
         <ModalRemoveTask isOpen={isOpen} onClose={onClose} />
       </CardHeader>
 
-      <CardBody
-        display="flex"
-        flexDirection="column"
-        alignItems="flex-start"
-        gap="0.5rem"
-      >
-        <Text>
-          {descriptionLength > optimalDescriptionLength
-            ? isExpanded
-              ? task.description
-              : shortenedDescription
-            : task.description}
-        </Text>
+      {task?.description && (
+        <CardBody
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          gap="0.5rem"
+        >
+          <Text>
+            {descriptionLength > optimalDescriptionLength
+              ? isExpanded
+                ? task.description
+                : shortenedDescription
+              : task.description}
+          </Text>
 
-        {descriptionLength > optimalDescriptionLength ? (
-          <Button
-            size="s"
-            fontSize="s"
-            variant="outline"
-            padding="0.2em 0.5em"
-            onClick={handleExpand}
-          >
-            {isExpanded ? "show less" : "show more"}
-          </Button>
-        ) : (
-          ""
-        )}
-      </CardBody>
+          {descriptionLength > optimalDescriptionLength ? (
+            <Button
+              size="s"
+              fontSize="s"
+              variant="outline"
+              padding="0.2em 0.5em"
+              onClick={handleExpand}
+            >
+              {isExpanded ? "show less" : "show more"}
+            </Button>
+          ) : (
+            ""
+          )}
+        </CardBody>
+      )}
     </Card>
   );
 }
