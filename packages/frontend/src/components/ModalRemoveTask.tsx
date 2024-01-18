@@ -6,6 +6,7 @@ import {
   AlertDialogBody,
   AlertDialogFooter,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { deleteTask } from "../api/endpoints";
@@ -27,12 +28,14 @@ export default function ModalRemoveTask({
   setTasks,
 }: ModalRemoveTaskProps) {
   const cancelRef = useRef<HTMLButtonElement>(null);
+  const toast = useToast();
 
   function handleRemoveTask() {
     deleteTask(task.id)
       .then(() => {
         const updatedTasks = tasks.filter((t) => t.id !== task.id);
         setTasks(updatedTasks);
+        toast({ title: "Removed a task", status: "success", isClosable: true });
       })
       .catch((err) => console.error(err));
     onClose();

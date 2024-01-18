@@ -12,6 +12,7 @@ import {
   Select,
   LightMode,
   FormControl,
+  useToast,
 } from "@chakra-ui/react";
 import columns from "../../config/columns";
 import { useState } from "react";
@@ -40,6 +41,8 @@ export default function ModalAddTask({
   const [selectedColumnId, setSelectedColumnId] = useState(curColumn.id);
   const [isNameEmpty, setIsNameEmpty] = useState(false);
 
+  const toast = useToast();
+
   function handleAddTask() {
     if (!name) {
       setIsNameEmpty(true);
@@ -54,7 +57,10 @@ export default function ModalAddTask({
     };
 
     addTask(newTask)
-      .then(() => setTasks([...tasks, newTask]))
+      .then(() => {
+        setTasks([...tasks, newTask]),
+          toast({ title: "Added a task", status: "success", isClosable: true });
+      })
       .catch((err) => console.error(err));
 
     setName("");
