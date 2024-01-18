@@ -35,7 +35,11 @@ export default function ModalRemoveTask({
       .then(() => {
         const updatedTasks = tasks.filter((t) => t.id !== task.id);
         setTasks(updatedTasks);
-        toast({ title: "Removed a task", status: "success", isClosable: true });
+        toast({
+          title: "Removed a task",
+          status: "warning",
+          isClosable: true,
+        });
       })
       .catch((err) => console.error(err));
     onClose();
