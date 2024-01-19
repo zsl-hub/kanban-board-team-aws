@@ -1,8 +1,8 @@
 import { APIGatewayProxyEventV2 } from "aws-lambda";
 import { DeleteTaskEvent } from "./types";
-import { ApiResponse } from "src/model/responses";
-import { getTaskRepository } from "src/repositories/taskRepository";
-import { ApiError } from "src/model/errors";
+import { ApiResponse } from "../../../model/responses";
+import { getTaskRepository }  from "../../../repositories/taskRepository";
+import { ApiError } from "../../../model/errors";
 import { z } from "zod";
 const taskRepository = getTaskRepository()
 
