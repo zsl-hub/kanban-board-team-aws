@@ -22,7 +22,7 @@ export class TaskRepository{
             }
         }
         const dbResponse = await this.dynamoDb.query(params).promise()
-        if(dbResponse.Count>1) console.log(`FOUND MORE THAN ONE ITEMS WITH ID ${id}`);
+        if(dbResponse.Count??0 >1) console.log(`FOUND MORE THAN ONE ITEMS WITH ID ${id}`);
         const result = dbResponse.Items?.map(e=>Task.parse(e))[0]
         return result
     }
