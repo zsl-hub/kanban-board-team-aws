@@ -1,5 +1,8 @@
 name: Workflow for S3 Deploy
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - master
 jobs:
   run:
     runs-on: ubuntu-latest
