@@ -2,7 +2,7 @@ name: Workflow for S3 Deploy
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   run:
     runs-on: ubuntu-latest
