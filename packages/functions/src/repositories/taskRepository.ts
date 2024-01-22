@@ -1,19 +1,24 @@
 import { DynamoDB } from "aws-sdk";
 import { Table } from "../../../../node_modules/sst/node/table";
-import { Task } from "../model/Task";
-import { z } from "zod"
+import { Task, TaskSchema } from "../model/Task";
 
-export class TaskRepository{
-    private dynamoDb = new DynamoDB.DocumentClient();
-    public async getAll(){ 
+export default class TaskRepository{
+
+    private dynamoDb;
+
+    constructor(){
+        this.dynamoDb = new DynamoDB.DocumentClient();
+    }
+
+    public async getAll(): Promise<Task[]> { 
         const params = {
             TableName: Table.Tasks.tableName,
         };
-        const result = (await this.dynamoDb.scan(params).promise()).Items?.map(e=>Task.parse(e))
-        return result
+        const result = (await this.dynamoDb.scan(params).promise()).Items?.map(e=>TaskSchema.parse(e) as Task)
+        return result ?? [];
     }
 
-    public async getById(id:string){
+    public async getById(id:string): Promise<Task | undefined> {
         const params = {
             TableName: Table.Tasks.tableName,
             KeyConditionExpression: 'id = :id',
@@ -23,27 +28,26 @@ export class TaskRepository{
         }
         const dbResponse = await this.dynamoDb.query(params).promise()
         if(dbResponse.Count ?? 0>1) console.log(`FOUND MORE THAN ONE ITEMS WITH ID ${id}`);
-        const result = dbResponse.Items?.map(e=>Task.parse(e))[0]
+        const result = dbResponse.Items?.map(e=> TaskSchema.parse(e) as Task)[0]
         return result
     }
 
-    public async add(task : z.infer<typeof Task>){ 
+    public async add(task : Task): Promise<void>{ 
         const params = {
             TableName: Table.Tasks.tableName,
             Item:task,
         };
-        return await this.dynamoDb.put(params).promise();
+        await this.dynamoDb.put(params).promise();
     }
 
-    public async delete(id:string){ 
+    public async delete(id:string): Promise<void> { 
         const params = {
             TableName: Table.Tasks.tableName,
             Key: {
                 id: id,
             }
         };
-        return await this.dynamoDb.delete(params).promise();
+        await this.dynamoDb.delete(params).promise();
     }
 }
 
-export const getTaskRepository = () => new TaskRepository();

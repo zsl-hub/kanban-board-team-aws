@@ -1,11 +1,11 @@
 import { ApiResponse } from "src/model/responses";
 
-import { TaskRepository } from "src/repositories/taskRepository";
+import { getTaskRepository } from "src/repositories/getTaskRepository";
 
-const getTaskRepository = () => new TaskRepository();
+const taskRepository = getTaskRepository();
 
 export async function main() {
 
-    const result = await getTaskRepository().getAll()
+    const result = await taskRepository.getAll()
     return ApiResponse.ok(result);
 }

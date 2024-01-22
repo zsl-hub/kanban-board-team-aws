@@ -1,10 +1,10 @@
 import { z } from "zod"
 
-const Task = z.object({
+export const TaskSchema = z.object({
     id : z.string().uuid(),
     name : z.string(),
     description : z.string(),
     columnId : z.number(), 
 });
 
-export {Task}
+export type Task = z.infer<typeof TaskSchema>;
