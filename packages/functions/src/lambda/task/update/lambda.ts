@@ -16,7 +16,7 @@ export async function main(e: APIGatewayProxyEventV2) {
         if (!itemCount) return ApiResponse.notFound(`Task with id ${body.id} was not found!`);
 
         const task = TaskSchema.parse(body)
-        await taskRepository.add(task);
+        await taskRepository.put(task);
         const res = "Updated task."
         return ApiResponse.ok(res)
     }catch(err){

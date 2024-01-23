@@ -38,7 +38,7 @@ export default class TaskRepository{
         return result
     }
 
-    public async add(task : Task): Promise<void>{ 
+    public async put(task : Task): Promise<void>{ 
         const params = {
             TableName: Table.Tasks.tableName,
             Item:task,
@@ -67,17 +67,6 @@ export default class TaskRepository{
             }
         };
         await this.dynamoDb.delete(params).promise();
-    }
-
-    public async update(id: string, task: Task): Promise<Task | void> {
-        const params = {
-            TableName: Table.Tasks.tableName,
-            Key: {
-                id: id,
-            },
-            Item:task,
-        };
-        await this.dynamoDb.update(params).promise();
     }
 }
 
