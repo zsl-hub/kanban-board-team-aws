@@ -18,7 +18,7 @@ function getId(e : APIGatewayProxyEventV2): string {
     }
 }
 
-export default async function main (e: APIGatewayProxyEventV2) {
+export async function main (e: APIGatewayProxyEventV2) {
 
     try{
         const id = getId(e);
@@ -35,7 +35,7 @@ export default async function main (e: APIGatewayProxyEventV2) {
         if (err instanceof ApiError) {
             return err.getApiResponse()
         }
-        throw err
+        return new ApiError(500, (err as Error)?.message).getApiResponse()
     }   
 }    
 

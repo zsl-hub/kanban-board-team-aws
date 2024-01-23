@@ -30,4 +30,10 @@ export class ApiResponse {
             statusCode : 403
         }
     }
+    public static internalServerError<T>(data : T) {
+        return {
+            body : JSON.stringify(data),
+            statusCode : 500
+        }
+    }
 }
