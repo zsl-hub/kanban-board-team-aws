@@ -83,7 +83,7 @@ export default function ModalAddTask({
       <ModalContent>
         <ModalHeader>Add new task</ModalHeader>
         <ModalCloseButton />
-        <ModalBody className="flex">
+        <ModalBody display="flex" flexDirection="column" gap="0.75rem">
           <FormControl isInvalid={isNameEmpty}>
             <Input
               variant="filled"
