@@ -8,18 +8,20 @@ import {
   useColorModeValue,
   SimpleGrid,
 } from "@chakra-ui/react";
-import columns from "../config/columns";
+import columnsFromConfig from "../config/columns";
 import colors from "../config/colors";
 import Column from "./components/Column";
-
+import { DragDropContext } from "react-beautiful-dnd";
 import { fetchAllTasks } from "./api/endpoints";
 import { useEffect, useState } from "react";
 import { TaskInterface } from "./types";
+import onDragEnd from "./utils/onDragEnd";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
   const value = useColorModeValue(colors.lightGray, colors.darkGray);
 
+  const [columns] = useState(columnsFromConfig);
   const [tasks, setTasks] = useState<TaskInterface[]>([]);
 
   useEffect(() => {
@@ -42,27 +44,32 @@ function App() {
           {colorMode === "light" ? "🌘" : "🌞"}
         </Button>
       </Flex>
-      <SimpleGrid
-        columns={{ lg: 5, md: 3, sm: 1 }}
-        spacing="1rem"
-        className="grid"
+
+      <DragDropContext
+        onDragEnd={(result) => onDragEnd(result, tasks, setTasks)}
       >
-        {columns.map((col) => {
-          const tasksForColumn = tasks?.filter(
-            (task) => task.columnId === col.id
-          );
-          return (
-            <Column
-              key={col.id}
-              column={col}
-              tasks={tasks}
-              setTasks={setTasks}
-              tasksForColumn={tasksForColumn}
-              bgColor={value}
-            />
-          );
-        })}
-      </SimpleGrid>
+        <SimpleGrid
+          columns={{ lg: 5, md: 3, sm: 1 }}
+          spacing="1rem"
+          className="grid"
+        >
+          {columns.map((col) => {
+            const tasksForColumn = tasks?.filter(
+              (task) => task.columnId === col.id
+            );
+            return (
+              <Column
+                key={col.id}
+                column={col}
+                tasks={tasks}
+                setTasks={setTasks}
+                tasksForColumn={tasksForColumn}
+                bgColor={value}
+              />
+            );
+          })}
+        </SimpleGrid>
+      </DragDropContext>
     </>
   );
 }

@@ -9,4 +9,5 @@ export interface ColumnInterface {
   id: number;
   description: string;
   statusColor: string;
+  tasks?: TaskInterface[];
 }

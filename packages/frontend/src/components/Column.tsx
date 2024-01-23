@@ -8,9 +8,12 @@ import {
   useDisclosure,
   LightMode,
 } from "@chakra-ui/react";
+
+import { Droppable } from "react-beautiful-dnd";
+
 import Icon from "./Icon";
+import Task from "./Task";
 import ModalAddTask from "./ModalAddTask";
-import Tasks from "./Tasks";
 
 import { TaskInterface, ColumnInterface } from "../types";
 
@@ -41,26 +44,41 @@ export default function Column({
           </CardHeader>
         </Card>
 
-        <Tasks
-          tasksForColumn={tasksForColumn}
+        <Droppable droppableId={String(column.id)}>
+          {(provided) => (
+            <Flex
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className="tasks-flex"
+            >
+              {tasksForColumn.map((task, index) => (
+                <Task
+                  key={task.id}
+                  task={task}
+                  tasks={tasks}
+                  setTasks={setTasks}
+                  index={index}
+                />
+              ))}
+              {provided.placeholder}
+            </Flex>
+          )}
+        </Droppable>
+
+        <LightMode>
+          <Button onClick={onOpen} colorScheme="teal" w="5">
+            +
+          </Button>
+        </LightMode>
+
+        <ModalAddTask
+          isOpen={isOpen}
+          onClose={onClose}
+          curColumn={column}
           tasks={tasks}
           setTasks={setTasks}
         />
       </Flex>
-
-      <LightMode>
-        <Button onClick={onOpen} colorScheme="teal" w="5">
-          +
-        </Button>
-      </LightMode>
-
-      <ModalAddTask
-        isOpen={isOpen}
-        onClose={onClose}
-        curColumn={column}
-        tasks={tasks}
-        setTasks={setTasks}
-      />
     </GridItem>
   );
 }

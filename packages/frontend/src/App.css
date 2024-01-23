@@ -17,7 +17,7 @@
   justify-content: space-between;
   border-radius: 15px;
   padding: 1em;
-  height: calc(100dvh - 6rem);
+  min-height: calc(100dvh - 6rem);
 }
 
 .column-header {
@@ -35,6 +35,13 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.tasks-flex {
+  min-height: 1px;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
 }
 
 .flex {
