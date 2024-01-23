@@ -1,19 +1,8 @@
-import {describe, expect, test, jest} from '@jest/globals';
+import {afterEach, describe, expect, test, vi} from 'vitest';
 import { APIGatewayProxyEventV2 } from 'aws-lambda';
-import { main as DeleteTask } from "./lambda"
-import { Task } from "../../../model/Task"
-import TaskRepository from "../../../repositories/taskRepository";
+import main from "./lambda"
+import { Task } from '@kanban-board-team-aws/functions/model/Task';
 
-jest.mock('../../../repositories/taskRepository', () => {
-    return function(){
-        return {
-            getById: jest.fn(),
-            delete: jest.fn(),
-        }
-    }
-});
-
-  // jest.mock('../../../repositories/taskRepository')
 
 describe("/task/delete tests",  ()=>{
 
@@ -26,7 +15,7 @@ describe("/task/delete tests",  ()=>{
         } as any
 
         //WHEN
-        const result = await DeleteTask(event)
+        const result = await main(event)
 
         // THEN
         expect(result?.statusCode ?? 0).toBe(400)
@@ -36,12 +25,6 @@ describe("/task/delete tests",  ()=>{
         // GIVEN
         const taskMock = {id: "01234567-89ab-cdef-0123-456789abcdef",name: "testName",description : "testDesc",columnId: 1,} as Task;
         
-        // const TaskRepositoryMock = TaskRepository as jest.Mock
-        // TaskRepositoryMock.mockImplementationOnce(()=>({
-        //     getById: jest.fn().mockImplementation(_=>taskMock)
-        // }))
-    
-
         const event: APIGatewayProxyEventV2 = {
             queryStringParameters: {
                 id: taskMock.id
@@ -49,7 +32,7 @@ describe("/task/delete tests",  ()=>{
         } as any
 
         //WHEN
-        const result = await DeleteTask(event)
+        const result = await main(event)
 
         // THEN
         expect(result?.statusCode ?? 0).toBe(200)
