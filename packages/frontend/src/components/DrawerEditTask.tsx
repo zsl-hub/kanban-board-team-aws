@@ -36,16 +36,22 @@ export default function DrawerEditTask({
 }: DrawerEditTaskProps) {
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedDescription, setUpdatedDescription] = useState(description);
+  const [isNameEmpty, setIsNameEmpty] = useState(false);
 
   function handleEditTask() {
-    if (!updatedName) return;
+    if (!updatedName) {
+      setIsNameEmpty(true);
+      return;
+    }
 
     const updatedTask = {
       ...task,
       name: updatedName,
       description: updatedDescription,
     };
+
     onUpdateTask(updatedTask);
+    setIsNameEmpty(false);
     onClose();
   }
 
@@ -59,12 +65,14 @@ export default function DrawerEditTask({
         <DrawerBody>
           <FormControl display="flex" flexDirection="column" gap="0.75rem">
             <Box>
-              <FormLabel>Task name</FormLabel>
-              <Input
-                type="text"
-                value={updatedName}
-                onChange={(e) => setUpdatedName(e.target.value)}
-              />
+              <FormControl isInvalid={isNameEmpty}>
+                <FormLabel>Task name</FormLabel>
+                <Input
+                  type="text"
+                  value={updatedName}
+                  onChange={(e) => setUpdatedName(e.target.value)}
+                />
+              </FormControl>
             </Box>
 
             <Box>
