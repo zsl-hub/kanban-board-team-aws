@@ -7,6 +7,8 @@ import {
   Text,
   useDisclosure,
   LightMode,
+  Badge,
+  Circle,
 } from "@chakra-ui/react";
 
 import { Droppable } from "react-beautiful-dnd";
@@ -39,8 +41,17 @@ export default function Column({
       <Flex flexDirection="column" gap="1rem">
         <Card w="full">
           <CardHeader className="column-header">
-            <Icon color={column.statusColor} />
-            <Text as="b">{column.description}</Text>
+            <Flex gap="0.25rem">
+              <Icon color={column.statusColor} />
+
+              <Text as="b">{column.description}</Text>
+            </Flex>
+
+            <Circle>
+              <Badge bg="teal" color="white">
+                {tasksForColumn.length}
+              </Badge>
+            </Circle>
           </CardHeader>
         </Card>
 
