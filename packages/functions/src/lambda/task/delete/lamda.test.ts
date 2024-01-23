@@ -12,7 +12,7 @@ describe("/task/delete tests",  ()=>{
         vi.restoreAllMocks()
     })
     
-    test("should return 200", async () => {
+    test(`Should return status code 200 and "Deletion successful" message`, async () => {
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "delete").mockResolvedValue()
         vi.spyOn(TaskRepository.prototype, "getById").mockResolvedValue(taskMock)
@@ -34,7 +34,7 @@ describe("/task/delete tests",  ()=>{
     test.each([
         ["missing parameters", {a: "1"}],
         ["incorrect parameters",{id: "that-is-not-a-correct-uuid"}]
-    ])("should return 400 - %s", async (description, queryStringParameters)=>{       
+    ])("should return status code 400 - %s", async (description, queryStringParameters)=>{       
         // GIVEN
         const event: APIGatewayProxyEventV2 = {
             queryStringParameters: queryStringParameters
@@ -47,7 +47,7 @@ describe("/task/delete tests",  ()=>{
         expect(result?.statusCode ?? 0).toBe(400)
     })
 
-    test("should return 404", async () => {
+    test("should return status code 404", async () => {
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "delete").mockResolvedValue()
         vi.spyOn(TaskRepository.prototype, "getById").mockResolvedValue(undefined)
@@ -65,7 +65,7 @@ describe("/task/delete tests",  ()=>{
         expect(result?.statusCode ?? 0).toBe(404)
     })
 
-    test("should return 500", async () => {
+    test("should return status code 500", async () => {
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "delete").mockResolvedValue()
         vi.spyOn(TaskRepository.prototype, "getById").mockRejectedValue(undefined)
