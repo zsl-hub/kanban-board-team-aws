@@ -1,13 +1,18 @@
 import { DynamoDB } from "aws-sdk";
-import { Table } from "../../../../node_modules/sst/node/table";
+import { Table } from "sst/node/table";
 import { Task, TaskSchema } from "../model/Task";
 
 export default class TaskRepository{
 
     private dynamoDb;
 
-    constructor(){
-        this.dynamoDb = new DynamoDB.DocumentClient();
+    constructor(dynamoDb: DynamoDB.DocumentClient){
+        this.dynamoDb = dynamoDb
+    }
+
+    public static getTaskRepository() {
+        const dynamoDb = new DynamoDB.DocumentClient();
+        return new TaskRepository(dynamoDb);
     }
 
     public async getAll(): Promise<Task[]> { 

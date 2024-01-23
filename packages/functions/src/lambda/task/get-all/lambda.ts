@@ -1,8 +1,8 @@
-import { ApiResponse } from "src/model/responses";
+import { ApiResponse } from "@kanban-board-team-aws/functions/model/responses";
+import TaskRepository from "@kanban-board-team-aws/functions/repositories/taskRepository";
 
-import { getTaskRepository } from "src/repositories/getTaskRepository";
 
-const taskRepository = getTaskRepository();
+const taskRepository = TaskRepository.getTaskRepository();
 
 export async function main() {
 

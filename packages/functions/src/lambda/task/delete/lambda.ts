@@ -1,10 +1,10 @@
+import { ApiError } from "@kanban-board-team-aws/functions/model/errors";
+import { ApiResponse } from "@kanban-board-team-aws/functions/model/responses";
+import TaskRepository from "@kanban-board-team-aws/functions/repositories/taskRepository";
 import { APIGatewayProxyEventV2 } from "aws-lambda";
-import { DeleteTaskEventSchema } from "./types";
-import { ApiResponse } from "../../../model/responses";
-import { getTaskRepository }  from "../../../repositories/getTaskRepository";
-import { ApiError } from "../../../model/errors";
 import { z } from "zod";
-const taskRepository = getTaskRepository()
+import { DeleteTaskEventSchema } from "./types";
+const taskRepository = TaskRepository.getTaskRepository();
 
 function getId(e : APIGatewayProxyEventV2): string {
     try{
@@ -18,7 +18,7 @@ function getId(e : APIGatewayProxyEventV2): string {
     }
 }
 
-export async function main (e: APIGatewayProxyEventV2) {
+export default async function main (e: APIGatewayProxyEventV2) {
 
     try{
         const id = getId(e);

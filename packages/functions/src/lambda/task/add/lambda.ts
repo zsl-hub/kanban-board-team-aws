@@ -1,10 +1,12 @@
-import { v4 as uuidv4 } from "uuid";
-import { ApiResponse } from "src/model/responses";
-import { TaskSchema } from "src/model/Task"
+import { TaskSchema } from "@kanban-board-team-aws/functions/model/Task";
+import { ApiResponse } from "@kanban-board-team-aws/functions/model/responses";
+import TaskRepository from "@kanban-board-team-aws/functions/repositories/taskRepository";
 import { APIGatewayProxyEventV2 } from "aws-lambda";
 import { z } from "zod";
-import { getTaskRepository }  from "../../../repositories/getTaskRepository";
-const taskRepository = getTaskRepository()
+import { v4 as uuidv4 } from "uuid";
+
+
+const taskRepository = TaskRepository.getTaskRepository();
 
 export async function main(e: APIGatewayProxyEventV2) {
     const body=JSON.parse(e.body??"")
