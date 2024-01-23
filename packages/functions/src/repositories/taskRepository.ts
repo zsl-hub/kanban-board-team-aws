@@ -19,7 +19,8 @@ export default class TaskRepository{
         const params = {
             TableName: Table.Tasks.tableName,
         };
-        const result = (await this.dynamoDb.scan(params).promise()).Items?.map(e=>TaskSchema.parse(e) as Task)
+        const dbResponse = await this.dynamoDb.scan(params).promise()
+        const result = dbResponse.Items?.map(e=>TaskSchema.parse(e) as Task)
         return result ?? [];
     }
 
@@ -33,7 +34,7 @@ export default class TaskRepository{
         }
         const dbResponse = await this.dynamoDb.query(params).promise()
         if(dbResponse.Count??0 >1) console.log(`FOUND MORE THAN ONE ITEMS WITH ID ${id}`);
-        const result = dbResponse.Items?.map(e=>Task.parse(e))[0]
+        const result = dbResponse.Items?.map(e=>TaskSchema.parse(e))[0]
         return result
     }
 
@@ -45,6 +46,19 @@ export default class TaskRepository{
         await this.dynamoDb.put(params).promise();
     }
 
+    public async getByColumnId(columnId: number): Promise<Task[] | string> {
+        const params = {
+            TableName: Table.Tasks.tableName,
+            FilterExpression: "columnId = :columnId",
+            ExpressionAttributeValues: {
+                ':columnId' : columnId,
+              }
+        }
+        const dbResponse = await this.dynamoDb.scan(params).promise()
+        const result = dbResponse.Items?.map(e=>TaskSchema.parse(e) as Task)
+        return result ?? [];
+    }
+
     public async delete(id:string): Promise<void> { 
         const params = {
             TableName: Table.Tasks.tableName,
@@ -53,6 +67,17 @@ export default class TaskRepository{
             }
         };
         await this.dynamoDb.delete(params).promise();
+    }
+
+    public async update(id: string, task: Task): Promise<Task | void> {
+        const params = {
+            TableName: Table.Tasks.tableName,
+            Key: {
+                id: id,
+            },
+            Item:task,
+        };
+        await this.dynamoDb.update(params).promise();
     }
 }
 

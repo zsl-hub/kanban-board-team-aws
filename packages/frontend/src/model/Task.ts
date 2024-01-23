@@ -5,17 +5,20 @@ class Task {
   public name: string;
   public description: string;
   public columnId: number;
+  public order: number
 
   constructor(
     columnId: number,
     name: string,
     description: string = "",
+    order: number,
     id?: string
   ) {
     this.id = id ?? uuidv4();
     this.columnId = columnId;
     this.name = name;
     this.description = description;
+    this.order = order;
   }
 }
 

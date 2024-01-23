@@ -5,6 +5,7 @@ export const TaskSchema = z.object({
     name : z.string(),
     description : z.string(),
     columnId : z.number(), 
+    order : z.number(),
 });
 
 export type Task = z.infer<typeof TaskSchema>;
