@@ -28,8 +28,8 @@ describe("/task/delete tests",  ()=>{
 
         // THEN
         expect(result?.statusCode ?? 0).toBe(200)
-        expect(result?.body ?? "").toBe(`"Deletion succesful."`) //quite interesting... when we want it to be a string we have to add "" to it lol
-    })
+        expect(JSON.parse(result?.body ?? "")).toBe(`Deletion succesful.`)
+})
 
     test.each([
         ["missing parameters", {a: "1"}],
