@@ -20,8 +20,8 @@ export default class TaskRepository{
             TableName: Table.Tasks.tableName,
         };
         const dbResponse = await this.dynamoDb.scan(params).promise()
-        const result = dbResponse.Items?.map(e=>TaskSchema.parse(e) as Task)
-        return result ?? [];
+        const result = dbResponse.Items?.map(e=>TaskSchema.parse(e) as Task) ?? []
+        return result;
     }
 
     public async getById(id:string): Promise<Task | undefined> {
