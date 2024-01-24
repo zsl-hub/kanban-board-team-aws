@@ -46,17 +46,19 @@ export default class TaskRepository{
         await this.dynamoDb.put(params).promise();
     }
 
-    public async getByColumnId(columnId: number): Promise<Task[] | string> {
+    public async getByColumnId(columnId: number): Promise<Task[] | undefined > {
         const params = {
             TableName: Table.Tasks.tableName,
             FilterExpression: "columnId = :columnId",
             ExpressionAttributeValues: {
-                ':columnId' : columnId,
-              }
+                ":columnId" : columnId,
+            }
         }
         const dbResponse = await this.dynamoDb.scan(params).promise()
+        if(dbResponse.Count==0) return undefined; 
         const result = dbResponse.Items?.map(e=>TaskSchema.parse(e) as Task)
-        return result ?? [];
+        return result;
+        
     }
 
     public async delete(id:string): Promise<void> { 
