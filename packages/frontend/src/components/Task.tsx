@@ -6,6 +6,7 @@ import {
   CardBody,
   useColorModeValue,
   useDisclosure,
+  Flex,
 } from "@chakra-ui/react";
 
 import { Draggable } from "react-beautiful-dnd";
@@ -15,6 +16,7 @@ import colors from "../../config/colors";
 import ModalRemoveTask from "./ModalRemoveTask";
 
 import { TaskInterface } from "../types";
+import DrawerEditTask from "./DrawerEditTask";
 
 interface TaskProps {
   task: TaskInterface;
@@ -25,7 +27,21 @@ interface TaskProps {
 
 export default function Task({ task, tasks, setTasks, index }: TaskProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [name] = useState(task.name);
+  const [description] = useState(task.description || "");
+
+  const {
+    isOpen: isDrawerOpen,
+    onOpen: onDrawerOpen,
+    onClose: onDrawerClose,
+  } = useDisclosure();
+  const {
+    isOpen: isModalOpen,
+    onOpen: onModalOpen,
+    onClose: onModalClose,
+  } = useDisclosure();
+
   const value = useColorModeValue(colors.lightGray, colors.veryDarkGray);
 
   const optimalDescriptionLength = 80;
@@ -37,6 +53,12 @@ export default function Task({ task, tasks, setTasks, index }: TaskProps) {
 
   function handleExpand() {
     setIsExpanded(!isExpanded);
+  }
+
+  function handleUpdateTask(updatedTask: TaskInterface) {
+    setTasks(
+      tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+    );
   }
 
   return (
@@ -57,13 +79,28 @@ export default function Task({ task, tasks, setTasks, index }: TaskProps) {
           >
             <Text>{task.name}</Text>
 
-            <Button variant="outline" size="xs" onClick={onOpen}>
-              X
-            </Button>
+            <Flex flexDirection="column" gap="0.5rem">
+              <Button variant="outline" size="xs" onClick={onModalOpen}>
+                X
+              </Button>
+
+              <Button variant="outline" size="xs" onClick={onDrawerOpen}>
+                ...
+              </Button>
+            </Flex>
+
+            <DrawerEditTask
+              isOpen={isDrawerOpen}
+              onClose={onDrawerClose}
+              task={task}
+              name={name}
+              description={description}
+              onUpdateTask={handleUpdateTask}
+            />
 
             <ModalRemoveTask
-              isOpen={isOpen}
-              onClose={onClose}
+              isOpen={isModalOpen}
+              onClose={onModalClose}
               task={task}
               tasks={tasks}
               setTasks={setTasks}
