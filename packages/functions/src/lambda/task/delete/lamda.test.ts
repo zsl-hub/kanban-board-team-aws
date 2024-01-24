@@ -4,7 +4,7 @@ import { main } from "./lambda"
 import { Task } from '@kanban-board-team-aws/functions/model/Task';
 import TaskRepository from '@kanban-board-team-aws/functions/repositories/taskRepository';
 
-const taskMock = {id: "01234567-89ab-cdef-0123-456789abcdef",name: "testName",description : "testDesc",columnId: 1,} as Task;
+const taskMock = {id: "01234567-89ab-cdef-0123-456789abcdef",name: "testName",description : "testDesc",columnId: 1, order: 1} as Task;
 
 describe("/task/delete tests",  ()=>{
     

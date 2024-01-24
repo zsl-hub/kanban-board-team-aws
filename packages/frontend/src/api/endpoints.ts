@@ -10,6 +10,7 @@ const addTask = async (task:Task) => {
         name: task.name,
         description: task.description,
         columnId: task.columnId,
+        order: task.order
     }
     const options = {
         method: "POST",

@@ -1,10 +1,9 @@
 import { afterEach,  describe, expect, test, vi} from 'vitest';
 import { APIGatewayProxyEventV2 } from 'aws-lambda';
 import { main } from "./lambda"
-import { Task } from '@kanban-board-team-aws/functions/model/Task';
 import TaskRepository from '@kanban-board-team-aws/functions/repositories/taskRepository';
 
-const requestBodyMock = {name: "testName",description : "testDesc",columnId: 1} as Task;
+const requestBodyMock = {name: "testName",description : "testDesc",columnId: 1, order: 1};
 
 describe("/task/add tests",  ()=>{
     
@@ -14,7 +13,7 @@ describe("/task/add tests",  ()=>{
     
     test(`should return status code 200`, async () => {
         // GIVEN
-        vi.spyOn(TaskRepository.prototype, "add").mockResolvedValue()
+        vi.spyOn(TaskRepository.prototype, "put").mockResolvedValue()
 
         const event: APIGatewayProxyEventV2 = {
             body: JSON.stringify(requestBodyMock)
@@ -40,7 +39,7 @@ describe("/task/add tests",  ()=>{
         ]
     ])("should return status code 400 - %s", async (description, body)=>{       
         // GIVEN
-        vi.spyOn(TaskRepository.prototype, "add").mockResolvedValue()
+        vi.spyOn(TaskRepository.prototype, "put").mockResolvedValue()
         
         const event: APIGatewayProxyEventV2 = {
             body: JSON.stringify(body)
@@ -55,7 +54,7 @@ describe("/task/add tests",  ()=>{
 
     test("should return status code 500", async () => {
         // GIVEN
-        vi.spyOn(TaskRepository.prototype, "add").mockRejectedValue(undefined)
+        vi.spyOn(TaskRepository.prototype, "put").mockRejectedValue(undefined)
 
         const event: APIGatewayProxyEventV2 = {
             body: JSON.stringify(requestBodyMock)
