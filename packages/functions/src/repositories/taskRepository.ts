@@ -38,7 +38,7 @@ export default class TaskRepository{
         return result
     }
 
-    public async put(task : Task): Promise<void>{ 
+    public async put(task : Task): Promise<Task | void>{ 
         const params = {
             TableName: Table.Tasks.tableName,
             Item:task,
