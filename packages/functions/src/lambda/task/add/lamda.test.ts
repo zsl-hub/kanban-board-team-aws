@@ -6,13 +6,13 @@ import TaskRepository from '@kanban-board-team-aws/functions/repositories/taskRe
 
 const requestBodyMock = {name: "testName",description : "testDesc",columnId: 1} as Task;
 
-describe("/task/delete tests",  ()=>{
+describe("/task/add tests",  ()=>{
     
     afterEach(_=>{
         vi.restoreAllMocks()
     })
     
-    test(`Should return status code 200`, async () => {
+    test(`should return status code 200`, async () => {
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "add").mockResolvedValue()
 

@@ -6,13 +6,13 @@ import TaskRepository from '@kanban-board-team-aws/functions/repositories/taskRe
 
 const mockedTaskArray : Task[] = [{id: "01234567-89ab-cdef-0123-456789abcdef",name: "testName",description : "testDesc",columnId: 1,}];
 
-describe("/task/delete tests",  ()=>{
+describe("/task/get-all tests",  ()=>{
     
     afterEach(_=>{
         vi.restoreAllMocks()
     })
     
-    test(`Should return status code 200 and array of tasks`, async () => {
+    test(`should return status code 200 and array of tasks`, async () => {
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "getAll").mockResolvedValue(mockedTaskArray)
 

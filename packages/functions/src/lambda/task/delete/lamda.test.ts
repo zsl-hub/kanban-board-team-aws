@@ -12,7 +12,7 @@ describe("/task/delete tests",  ()=>{
         vi.restoreAllMocks()
     })
     
-    test(`Should return status code 200 and "Deletion successful" message`, async () => {
+    test(`should return status code 200 and "Deletion successful" message`, async () => {
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "delete").mockResolvedValue()
         vi.spyOn(TaskRepository.prototype, "getById").mockResolvedValue(taskMock)
