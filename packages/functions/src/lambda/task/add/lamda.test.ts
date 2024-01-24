@@ -40,6 +40,8 @@ describe("/task/delete tests",  ()=>{
         ]
     ])("should return status code 400 - %s", async (description, body)=>{       
         // GIVEN
+        vi.spyOn(TaskRepository.prototype, "add").mockResolvedValue()
+        
         const event: APIGatewayProxyEventV2 = {
             body: JSON.stringify(body)
         } as any
