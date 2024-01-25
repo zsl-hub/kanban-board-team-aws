@@ -57,8 +57,6 @@ export default function DrawerEditTask({
       order,
     };
 
-    console.log(updatedTask);
-
     updateTask(updatedTask)
       .then(() => {
         setTasks((prevTasks) => [
@@ -66,7 +64,7 @@ export default function DrawerEditTask({
           updatedTask,
         ]);
       })
-      .catch((err) => console.error(err.body));
+      .catch((err) => console.error(err));
 
     onUpdateTask(updatedTask);
     setIsNameEmpty(false);

@@ -1,11 +1,12 @@
 import { DropResult } from "react-beautiful-dnd";
 import { TaskInterface } from "../types";
 import columnsFromConfig from "../../config/columns";
+import { updateTask } from "../api/endpoints";
 
-export default function onDragEnd(
+export default async function onDragEnd(
   result: DropResult,
   tasks: TaskInterface[],
-  setTasks: (tasks: TaskInterface[]) => void
+  setTasks: React.Dispatch<React.SetStateAction<TaskInterface[]>>
 ) {
   const columns = columnsFromConfig;
 
@@ -38,6 +39,8 @@ export default function onDragEnd(
       const [removed] = newStartTasks.splice(source.index, 1);
       removed.columnId = endColumn.id;
 
+      console.log(removed);
+
       const newFinishTasks = Array.from(finishTasks);
       newFinishTasks.splice(destination.index, 0, removed);
 
@@ -48,6 +51,11 @@ export default function onDragEnd(
 
       const newTasks = [...otherTasks, ...newStartTasks, ...newFinishTasks];
 
+      updateTask(removed)
+        .then(() => {
+          setTasks(newTasks);
+        })
+        .catch((err) => console.error(err));
       setTasks(newTasks);
     } else {
       const newTasks = Array.from(startTasks);
@@ -59,8 +67,7 @@ export default function onDragEnd(
       );
 
       const updatedTasks = [...otherTasks, ...newTasks];
-
-      setTasks(updatedTasks);
+      console.log(updatedTasks);
     }
   }
 }

@@ -3,6 +3,7 @@ export interface TaskInterface {
   name: string;
   description: string;
   columnId: number;
+  order: number;
 }
 
 export interface ColumnInterface {
