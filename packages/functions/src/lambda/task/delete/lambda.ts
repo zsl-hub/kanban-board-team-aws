@@ -22,11 +22,17 @@ export async function main (e: APIGatewayProxyEventV2) {
 
     try{
         const id = getId(e);
-        const itemCount = (await taskRepository.getById(id));
+        const task = (await taskRepository.getById(id));
         
-        if(!itemCount) return ApiResponse.notFound(`Task with id ${getId(e)} was not found!`)
+        if(!task) return ApiResponse.notFound(`Task with id ${getId(e)} was not found!`)
 
         await taskRepository.delete(getId(e) as string)
+        const oldColumnTasks = await taskRepository.getByColumnId(task.columnId);
+        oldColumnTasks.map(e=>{
+            if(e.order>task.order) e.order--
+            return e
+        })
+        taskRepository.batchWrite(oldColumnTasks)
 
         const response = "Deletion succesful."
         return ApiResponse.ok(response);
