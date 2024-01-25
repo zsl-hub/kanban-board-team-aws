@@ -29,7 +29,7 @@ describe("/task/getByColumnId tests", ()=>{
         const result = await main(event)
 
         // THEN
-        expect(result?.statusCode ?? 0).toBe(200)
+        expect(result?.statusCode).toBe(200)
         expect(JSON.parse(result?.body ?? "")).toStrictEqual(taskMock)
     })
 
@@ -54,7 +54,7 @@ describe("/task/getByColumnId tests", ()=>{
         const result = await main(event)
 
         // THEN
-        expect(result?.statusCode ?? 0).toBe(400)
+        expect(result?.statusCode).toBe(400)
     })
 
     test("should return status code 500", async () => {
@@ -71,23 +71,6 @@ describe("/task/getByColumnId tests", ()=>{
         const result = await main(event)
 
         // THEN
-        expect(result?.statusCode ?? 0).toBe(500)
-    })
-
-    test("should return status code 404", async () => {
-        // GIVEN
-        vi.spyOn(TaskRepository.prototype, "getByColumnId").mockResolvedValue(undefined)
-
-        const event: APIGatewayProxyEventV2 = {
-            queryStringParameters: {
-                columnId: taskMock[0].columnId.toString()
-            }
-        } as any
-
-        //WHEN
-        const result = await main(event)
-
-        // THEN
-        expect(result?.statusCode ?? 0).toBe(404)
+        expect(result?.statusCode).toBe(500)
     })
 })

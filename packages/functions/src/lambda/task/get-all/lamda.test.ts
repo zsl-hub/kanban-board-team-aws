@@ -20,7 +20,7 @@ describe("/task/get-all tests",  ()=>{
         const result = await main() 
 
         // THEN
-        expect(result?.statusCode ?? 0).toBe(200)
+        expect(result?.statusCode).toBe(200)
         expect(typeof JSON.parse(result?.body ?? "")).toBe(typeof mockedTaskArray)
     })
 
@@ -32,6 +32,6 @@ describe("/task/get-all tests",  ()=>{
         const result = await main()
 
         // THEN
-        expect(result?.statusCode ?? 0).toBe(500)
+        expect(result?.statusCode).toBe(500)
     })
 })

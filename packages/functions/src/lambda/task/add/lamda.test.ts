@@ -22,7 +22,7 @@ describe("/task/add tests",  ()=>{
         const result = await main(event) 
 
         // THEN
-        expect(result?.statusCode ?? 0).toBe(200)
+        expect(result?.statusCode).toBe(200)
         expect(JSON.parse(result?.body ?? "")).toBe(`Added task to the table.`)
 })
 
@@ -49,7 +49,7 @@ describe("/task/add tests",  ()=>{
         const result = await main(event)
 
         // THEN
-        expect(result?.statusCode ?? 0).toBe(400)
+        expect(result?.statusCode).toBe(400)
     })
 
     test("should return status code 500", async () => {
@@ -64,6 +64,6 @@ describe("/task/add tests",  ()=>{
         const result = await main(event)
 
         // THEN
-        expect(result?.statusCode ?? 0).toBe(500)
+        expect(result?.statusCode).toBe(500)
     })
 })
