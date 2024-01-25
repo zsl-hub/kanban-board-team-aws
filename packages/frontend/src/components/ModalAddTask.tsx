@@ -36,7 +36,7 @@ export default function ModalAddTask({
   curColumn,
   tasks,
   setTasks,
-  tasksForColumn
+  tasksForColumn,
 }: ModalAddTaskProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -56,7 +56,7 @@ export default function ModalAddTask({
       name: name,
       description: description,
       columnId: selectedColumnId,
-      order: tasksForColumn.length+1
+      order: tasksForColumn.length,
     };
 
     addTask(newTask)

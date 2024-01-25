@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { TaskInterface } from "../types";
 import { useState } from "react";
+import { updateTask } from "../api/endpoints";
 
 interface DrawerEditTaskProps {
   isOpen: boolean;
@@ -24,6 +25,9 @@ interface DrawerEditTaskProps {
   name: string;
   description: string;
   onUpdateTask: (updatedTask: TaskInterface) => void;
+  order: number;
+  tasks: TaskInterface[];
+  setTasks: React.Dispatch<React.SetStateAction<TaskInterface[]>>;
 }
 
 export default function DrawerEditTask({
@@ -33,6 +37,8 @@ export default function DrawerEditTask({
   name,
   description,
   onUpdateTask,
+  order,
+  setTasks,
 }: DrawerEditTaskProps) {
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedDescription, setUpdatedDescription] = useState(description);
@@ -48,7 +54,19 @@ export default function DrawerEditTask({
       ...task,
       name: updatedName,
       description: updatedDescription,
+      order,
     };
+
+    console.log(updatedTask);
+
+    updateTask(updatedTask)
+      .then(() => {
+        setTasks((prevTasks) => [
+          ...prevTasks.filter((task) => task.id !== updatedTask.id),
+          updatedTask,
+        ]);
+      })
+      .catch((err) => console.error(err.body));
 
     onUpdateTask(updatedTask);
     setIsNameEmpty(false);
