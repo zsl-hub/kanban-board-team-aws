@@ -18,6 +18,9 @@ describe("/task/update tests", ()=>{
         
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "put").mockResolvedValue()
+        vi.spyOn(TaskRepository.prototype, "getByColumnId").mockResolvedValue([taskMock])
+        vi.spyOn(TaskRepository.prototype, "getById").mockResolvedValue(taskMock)
+        vi.spyOn(TaskRepository.prototype, "batchWrite").mockResolvedValue()
 
         const event: APIGatewayProxyEventV2 = {
             body: JSON.stringify(taskMock)
@@ -47,6 +50,9 @@ describe("/task/update tests", ()=>{
     ])(`should return status code 400 - %s`, async (description, body)=>{       
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "put").mockResolvedValue()
+        vi.spyOn(TaskRepository.prototype, "getByColumnId").mockResolvedValue([taskMock])
+        vi.spyOn(TaskRepository.prototype, "getById").mockResolvedValue(taskMock)
+        vi.spyOn(TaskRepository.prototype, "batchWrite").mockResolvedValue()
 
         const event: APIGatewayProxyEventV2 = {
             body: JSON.stringify(body)
@@ -62,6 +68,9 @@ describe("/task/update tests", ()=>{
     test("should return status code 500", async () => {
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "put").mockRejectedValue(undefined)
+        vi.spyOn(TaskRepository.prototype, "getByColumnId").mockResolvedValue([taskMock])
+        vi.spyOn(TaskRepository.prototype, "getById").mockResolvedValue(taskMock)
+        vi.spyOn(TaskRepository.prototype, "batchWrite").mockResolvedValue()
 
         const event: APIGatewayProxyEventV2 = {
             body: JSON.stringify(taskMock)

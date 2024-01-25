@@ -15,6 +15,8 @@ describe("/task/delete tests",  ()=>{
     test(`should return status code 200 and "Deletion successful" message`, async () => {
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "delete").mockResolvedValue()
+        vi.spyOn(TaskRepository.prototype, "getByColumnId").mockResolvedValue([taskMock])
+        vi.spyOn(TaskRepository.prototype, "batchWrite").mockResolvedValue()
         vi.spyOn(TaskRepository.prototype, "getById").mockResolvedValue(taskMock)
 
         const event: APIGatewayProxyEventV2 = {
@@ -50,6 +52,8 @@ describe("/task/delete tests",  ()=>{
     test("should return status code 404", async () => {
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "delete").mockResolvedValue()
+        vi.spyOn(TaskRepository.prototype, "getByColumnId").mockResolvedValue([taskMock])
+        vi.spyOn(TaskRepository.prototype, "batchWrite").mockResolvedValue()
         vi.spyOn(TaskRepository.prototype, "getById").mockResolvedValue(undefined)
 
         const event: APIGatewayProxyEventV2 = {
@@ -68,6 +72,7 @@ describe("/task/delete tests",  ()=>{
     test("should return status code 500", async () => {
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "delete").mockResolvedValue()
+        vi.spyOn(TaskRepository.prototype, "batchWrite").mockResolvedValue()
         vi.spyOn(TaskRepository.prototype, "getById").mockRejectedValue(undefined)
 
         const event: APIGatewayProxyEventV2 = {

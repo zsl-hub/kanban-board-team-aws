@@ -11,8 +11,14 @@ describe("/task/get-all tests",  ()=>{
     afterEach(_=>{
         vi.restoreAllMocks()
     })
-    
-    test(`should return status code 200 and array of tasks`, async () => {
+    test.each([
+        ["an empty array", 
+            []
+        ],
+        ["and a non-empty array",
+            mockedTaskArray
+        ]
+    ])(`should return status code 200 and %s`, async (description, mockedTaskArray) => {
         // GIVEN
         vi.spyOn(TaskRepository.prototype, "getAll").mockResolvedValue(mockedTaskArray)
 
