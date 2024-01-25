@@ -4,6 +4,8 @@ import TaskRepository from "@kanban-board-team-aws/functions/repositories/taskRe
 import { z } from "zod";
 import { APIGatewayProxyEventV2 } from "aws-lambda";
 import { ApiError } from "src/model/errors";
+import { UpdateTaskEventSchema } from "./types";
+
 
 
 const taskRepository = TaskRepository.getTaskRepository();
@@ -11,13 +13,43 @@ const taskRepository = TaskRepository.getTaskRepository();
 export async function main(e: APIGatewayProxyEventV2) {
         
     try {
-        const body=JSON.parse(e.body??"")
-        const task = TaskSchema.parse(body)
-        const itemCount = taskRepository.getById(body.id)
-        if (!itemCount) return ApiResponse.notFound(`Task with id ${body.id} was not found!`);
+        e.body = JSON.parse(e.body ?? "")
+        const body = UpdateTaskEventSchema.parse(e).body
+        const oldTask = await taskRepository.getById(body.id)
+        if (!oldTask) return ApiResponse.notFound(`Task with id ${body.id} was not found!`);
+        const newTask = TaskSchema.parse({...oldTask,...body})
+
+        if(body.columnId || body.order){
+
+            const extendedQuery = {
+                fields: {
+                    ":id": newTask.id
+                },
+                query: "and not id = :id"
+            } as any
+
+            // Aktualizacja oryginalnej kolumny
+            const oldColumnTasks = await taskRepository.getByColumnId(oldTask.columnId,extendedQuery);
+            oldColumnTasks.map(e=>{
+                if(e.order>oldTask.order) e.order--
+                return e
+            })
+            taskRepository.batchWrite(oldColumnTasks)
+
+            // Aktualizacja kolumny docelowej
+            const newColumnTasks = await taskRepository.getByColumnId(newTask.columnId,extendedQuery);
+            newColumnTasks.map(e=>{
+                if(e.order>=newTask.order) e.order++
+                return e
+            })
+            taskRepository.batchWrite(newColumnTasks)
+
+        }
+
+        await taskRepository.put(newTask);
+        
 
         
-        await taskRepository.put(task);
         const res = "Updated task."
         return ApiResponse.ok(res)
     }catch(err){
