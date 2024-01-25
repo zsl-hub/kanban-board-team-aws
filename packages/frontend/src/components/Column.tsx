@@ -88,6 +88,7 @@ export default function Column({
           curColumn={column}
           tasks={tasks}
           setTasks={setTasks}
+          tasksForColumn={tasksForColumn}
         />
       </Flex>
     </GridItem>
