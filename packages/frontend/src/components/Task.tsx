@@ -77,9 +77,7 @@ export default function Task({ task, tasks, setTasks, index }: TaskProps) {
             fontWeight="500"
             borderBottom={`1px solid ${value}`}
           >
-            <Text>
-              {task.name} {task.order}
-            </Text>
+            <Text>{task.name}</Text>
 
             <Flex flexDirection="column" gap="0.5rem">
               <Button variant="outline" size="xs" onClick={onModalOpen}>

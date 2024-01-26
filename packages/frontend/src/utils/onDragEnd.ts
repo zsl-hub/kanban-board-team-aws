@@ -52,13 +52,12 @@ export default async function onDragEnd(
       const newTasks = [...otherTasks, ...newStartTasks, ...newFinishTasks];
 
       updateTask(movedTask)
-        // .then(() => setTasks(newTasks))
+        .then(() => setTasks(newTasks))
         .catch((err) => console.error(err));
-      // setTasks(newTasks);
+      setTasks(newTasks);
     } else {
       const newTasks = Array.from(startTasks);
       const [movedTask] = newTasks.splice(source.index, 1);
-      console.log(destination.index);
 
       movedTask.columnId = endColumn.id;
       movedTask.order = destination.index;
@@ -73,9 +72,9 @@ export default async function onDragEnd(
       const updatedTasks = [...otherTasks, ...newTasks];
 
       updateTask(movedTask)
-        // .then(() => setTasks(updatedTasks))
+        .then(() => setTasks(updatedTasks))
         .catch((err) => console.error(err));
-      // setTasks(updatedTasks);
+      setTasks(updatedTasks);
     }
   }
 }
