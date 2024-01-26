@@ -96,8 +96,6 @@ export default function Task({ task, tasks, setTasks, index }: TaskProps) {
               name={name}
               description={description}
               onUpdateTask={handleUpdateTask}
-              tasks={tasks}
-              order={index}
             />
 
             <ModalRemoveTask

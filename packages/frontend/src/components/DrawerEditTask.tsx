@@ -25,8 +25,6 @@ interface DrawerEditTaskProps {
   name: string;
   description: string;
   onUpdateTask: (updatedTask: TaskInterface) => void;
-  order: number;
-  tasks: TaskInterface[];
 }
 
 export default function DrawerEditTask({
@@ -36,7 +34,6 @@ export default function DrawerEditTask({
   name,
   description,
   onUpdateTask,
-  order,
 }: DrawerEditTaskProps) {
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedDescription, setUpdatedDescription] = useState(description);
@@ -52,7 +49,7 @@ export default function DrawerEditTask({
       ...task,
       name: updatedName,
       description: updatedDescription,
-      order,
+      order: task.order,
     };
 
     updateTask(updatedTask)
