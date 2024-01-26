@@ -37,9 +37,9 @@ export default async function onDragEnd(
     if (startColumn !== endColumn) {
       const newStartTasks = Array.from(startTasks);
       const [removed] = newStartTasks.splice(source.index, 1);
-      removed.columnId = endColumn.id;
 
-      console.log(removed);
+      removed.columnId = endColumn.id;
+      removed.order = destination.index;
 
       const newFinishTasks = Array.from(finishTasks);
       newFinishTasks.splice(destination.index, 0, removed);
@@ -52,22 +52,30 @@ export default async function onDragEnd(
       const newTasks = [...otherTasks, ...newStartTasks, ...newFinishTasks];
 
       updateTask(removed)
-        .then(() => {
-          setTasks(newTasks);
-        })
+        // .then(() => setTasks(newTasks))
         .catch((err) => console.error(err));
-      setTasks(newTasks);
+      // setTasks(newTasks);
     } else {
       const newTasks = Array.from(startTasks);
       const [removed] = newTasks.splice(source.index, 1);
+      console.log(destination.index);
+
+      removed.columnId = endColumn.id;
+      removed.order = destination.index;
+
       newTasks.splice(destination.index, 0, removed);
 
       const otherTasks = tasks.filter(
-        (task) => task.columnId !== startColumn.id
+        (task) =>
+          task.columnId !== startColumn.id && task.columnId !== endColumn.id
       );
 
       const updatedTasks = [...otherTasks, ...newTasks];
-      console.log(updatedTasks);
+
+      updateTask(removed)
+        // .then(() => setTasks(updatedTasks))
+        .catch((err) => console.error(err));
+      // setTasks(updatedTasks);
     }
   }
 }
