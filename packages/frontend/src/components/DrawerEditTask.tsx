@@ -27,7 +27,6 @@ interface DrawerEditTaskProps {
   onUpdateTask: (updatedTask: TaskInterface) => void;
   order: number;
   tasks: TaskInterface[];
-  setTasks: React.Dispatch<React.SetStateAction<TaskInterface[]>>;
 }
 
 export default function DrawerEditTask({
@@ -38,7 +37,6 @@ export default function DrawerEditTask({
   description,
   onUpdateTask,
   order,
-  setTasks,
 }: DrawerEditTaskProps) {
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedDescription, setUpdatedDescription] = useState(description);
@@ -59,14 +57,10 @@ export default function DrawerEditTask({
 
     updateTask(updatedTask)
       .then(() => {
-        setTasks((prevTasks) => [
-          ...prevTasks.filter((task) => task.id !== updatedTask.id),
-          updatedTask,
-        ]);
+        onUpdateTask(updatedTask);
       })
       .catch((err) => console.error(err));
 
-    onUpdateTask(updatedTask);
     setIsNameEmpty(false);
     onClose();
   }

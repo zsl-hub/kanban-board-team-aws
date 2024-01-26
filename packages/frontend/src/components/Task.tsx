@@ -99,7 +99,6 @@ export default function Task({ task, tasks, setTasks, index }: TaskProps) {
               description={description}
               onUpdateTask={handleUpdateTask}
               tasks={tasks}
-              setTasks={setTasks}
               order={index}
             />
 
