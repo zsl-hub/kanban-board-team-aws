@@ -59,12 +59,17 @@ export default function ModalAddTask({
       order: tasksForColumn.length,
     };
 
-    addTask(newTask)
+    const promise = addTask(newTask)
       .then(() => {
-        setTasks([...tasks, newTask]),
-          toast({ title: "Added a task", status: "success", isClosable: true });
+        setTasks([...tasks, newTask]);
       })
       .catch((err) => console.error(err));
+
+    toast.promise(promise, {
+      success: { title: "Added", description: "Looks great" },
+      error: { title: "Promise rejected", description: "Something wrong" },
+      loading: { title: "Adding...", description: "Please wait" },
+    });
 
     setName("");
     setDescription("");
