@@ -66,9 +66,9 @@ export default function ModalAddTask({
       .catch((err) => console.error(err));
 
     toast.promise(promise, {
-      success: { title: "Added", description: "Looks great" },
-      error: { title: "Promise rejected", description: "Something wrong" },
-      loading: { title: "Adding...", description: "Please wait" },
+      success: { title: "Added task", description: "Looks great!" },
+      error: { title: "Something went wrong" },
+      loading: { title: "Adding task", description: "Please wait" },
     });
 
     setName("");
