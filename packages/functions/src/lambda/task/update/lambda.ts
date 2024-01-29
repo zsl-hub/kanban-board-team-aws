@@ -33,23 +33,29 @@ export async function main(e: APIGatewayProxyEventV2) {
         oldTask.columnId,
         extendedQuery
       );
-      oldColumnTasks.map((e) => {
-        if (e.order > oldTask.order) e.order--;
-        return e;
-      });
-      taskRepository.batchWrite(oldColumnTasks);
+      if (oldColumnTasks.length){
+        oldColumnTasks.map((e) => {
+          if (e.order > oldTask.order) e.order--;
+          return e;
+        });
+        taskRepository.batchWrite(oldColumnTasks);
+      }
+      
 
       // Aktualizacja kolumny docelowej
       const newColumnTasks = await taskRepository.getByColumnId(
         newTask.columnId,
         extendedQuery
       );
-      newColumnTasks.map((e) => {
-        if (e.order >= newTask.order) e.order++;
-        return e;
-      });
-      taskRepository.batchWrite(newColumnTasks);
-    }
+      if (newColumnTasks.length){
+        newColumnTasks.map((e) => {
+          if (e.order >= newTask.order) e.order++;
+          return e;
+        });
+        taskRepository.batchWrite(newColumnTasks);
+      }
+      }
+      
 
     await taskRepository.put(newTask);
 
