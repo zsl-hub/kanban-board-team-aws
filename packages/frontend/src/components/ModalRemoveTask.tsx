@@ -31,17 +31,29 @@ export default function ModalRemoveTask({
   const toast = useToast();
 
   function handleRemoveTask() {
-    deleteTask(task.id)
+    const promise = deleteTask(task.id)
       .then(() => {
         const updatedTasks = tasks.filter((t) => t.id !== task.id);
         setTasks(updatedTasks);
-        toast({
-          title: "Removed a task",
-          status: "warning",
-          isClosable: true,
-        });
       })
       .catch((err) => console.error(err));
+
+    toast.promise(promise, {
+      success: {
+        title: "Task Removed Successfully",
+        description: "The task has been removed from your list.",
+      },
+      error: {
+        title: "Unable to Remove Task",
+        description:
+          "Oops! Something went wrong while removing your task. Please try again.",
+      },
+      loading: {
+        title: "Removing Task",
+        description: "Hold on, we're removing your task.",
+      },
+    });
+
     onClose();
   }
 

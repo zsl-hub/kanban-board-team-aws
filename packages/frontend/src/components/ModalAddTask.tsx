@@ -66,9 +66,19 @@ export default function ModalAddTask({
       .catch((err) => console.error(err));
 
     toast.promise(promise, {
-      success: { title: "Added task", description: "Looks great!" },
-      error: { title: "Something went wrong" },
-      loading: { title: "Adding task", description: "Please wait" },
+      success: {
+        title: "Task Added Successfully",
+        description: "Your new task has been added. Keep up the good work!",
+      },
+      error: {
+        title: "Unable to Add Task",
+        description:
+          "Oops! Something went wrong while adding your task. Please try again.",
+      },
+      loading: {
+        title: "Adding New Task",
+        description: "Hang tight, we're adding your task.",
+      },
     });
 
     setName("");

@@ -13,6 +13,7 @@ import {
   Input,
   LightMode,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { TaskInterface } from "../types";
 import { useState } from "react";
@@ -39,6 +40,8 @@ export default function DrawerEditTask({
   const [updatedDescription, setUpdatedDescription] = useState(description);
   const [isNameEmpty, setIsNameEmpty] = useState(false);
 
+  const toast = useToast();
+
   function handleEditTask() {
     if (!updatedName) {
       setIsNameEmpty(true);
@@ -52,11 +55,27 @@ export default function DrawerEditTask({
       order: task.order,
     };
 
-    updateTask(updatedTask)
+    const promise = updateTask(updatedTask)
       .then(() => {
         onUpdateTask(updatedTask);
       })
       .catch((err) => console.error(err));
+
+    toast.promise(promise, {
+      success: {
+        title: "Task Edited Successfully",
+        description: "Your changes have been saved successfully.",
+      },
+      error: {
+        title: "Unable to Edit Task",
+        description:
+          "Oops! Something went wrong while editing your task. Please try again.",
+      },
+      loading: {
+        title: "Editing Task",
+        description: "Please wait while we save your changes.",
+      },
+    });
 
     setIsNameEmpty(false);
     onClose();
