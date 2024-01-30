@@ -47,14 +47,16 @@ export async function main(e: APIGatewayProxyEventV2) {
         newTask.columnId,
         extendedQuery
       );
+      newTask.order = newTask.order>newColumnTasks.length?newColumnTasks.length:newTask.order  // protects from setting too big order 
+      newTask.order = newTask.order<0?0:newTask.order  // protects from setting too low order 
       if (newColumnTasks.length){
         newColumnTasks.map((e) => {
           if (e.order >= newTask.order) e.order++;
           return e;
         });
         taskRepository.batchWrite(newColumnTasks);
-      }
-      }
+      } 
+    }
       
 
     await taskRepository.put(newTask);
