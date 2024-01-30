@@ -68,8 +68,7 @@ export default function DrawerEditTask({
       },
       error: {
         title: "Unable to Edit Task",
-        description:
-          "Oops! Something went wrong while editing your task. Please try again.",
+        description: "Oops! Something went wrong while editing your task.",
       },
       loading: {
         title: "Editing Task",
