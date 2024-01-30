@@ -7,6 +7,7 @@ import {
   useColorMode,
   useColorModeValue,
   SimpleGrid,
+  Box,
 } from "@chakra-ui/react";
 import columnsFromConfig from "../config/columns";
 import colors from "../config/colors";
@@ -16,6 +17,7 @@ import { fetchAllTasks } from "./api/endpoints";
 import { useEffect, useState } from "react";
 import { TaskInterface } from "./types";
 import onDragEnd from "./utils/onDragEnd";
+import LoginPanel from "./components/LoginPanel";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -35,14 +37,20 @@ function App() {
   return (
     <>
       <Flex justify="space-between" align="center">
-        <Heading display="flex" gap="1rem" size={["md", "lg", "xl"]}>
-          <Text>Kanban Board</Text>
-          <Text className="colored-header">AWS</Text>
+        <Heading display="flex" flexDirection="row" size={["md", "lg", "xl"]}>
+          <Text>
+            <span className="colored-header">AWS</span>
+            ome Kanban
+          </Text>
         </Heading>
 
-        <Button onClick={toggleColorMode}>
-          {colorMode === "light" ? "🌘" : "🌞"}
-        </Button>
+        <Box display="flex" alignItems="center" gap="1rem">
+          <LoginPanel />
+
+          <Button onClick={toggleColorMode}>
+            {colorMode === "light" ? "🌘" : "🌞"}
+          </Button>
+        </Box>
       </Flex>
 
       <DragDropContext

@@ -20,6 +20,7 @@ import { addTask } from "../api/endpoints";
 import { v4 as uuidv4 } from "uuid";
 
 import { TaskInterface, ColumnInterface } from "../types";
+import FileInput from "./FileInput";
 
 interface ModalAddTaskProps {
   isOpen: boolean;
@@ -68,12 +69,11 @@ export default function ModalAddTask({
     toast.promise(promise, {
       success: {
         title: "Task Added Successfully",
-        description: "Your new task has been added. Keep up the good work!",
+        description: "Your new task has been added.",
       },
       error: {
         title: "Unable to Add Task",
-        description:
-          "Oops! Something went wrong while adding your task. Please try again.",
+        description: "Oops! Something went wrong while adding your task.",
       },
       loading: {
         title: "Adding New Task",
@@ -129,6 +129,8 @@ export default function ModalAddTask({
               </option>
             ))}
           </Select>
+
+          <FileInput />
         </ModalBody>
 
         <ModalFooter>

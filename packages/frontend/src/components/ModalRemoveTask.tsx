@@ -45,8 +45,7 @@ export default function ModalRemoveTask({
       },
       error: {
         title: "Unable to Remove Task",
-        description:
-          "Oops! Something went wrong while removing your task. Please try again.",
+        description: "Oops! Something went wrong while removing your task.",
       },
       loading: {
         title: "Removing Task",
