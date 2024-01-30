@@ -2,7 +2,7 @@ import { Task } from "../model/Task";
 
 const fetchAllTasks = async () => {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/task/get-all`);
-  return await response.json();
+  return response.status==403 ? [] : await response.json();
 };
 
 const addTask = async (task: Task) => {
