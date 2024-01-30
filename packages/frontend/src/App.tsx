@@ -45,11 +45,11 @@ function App() {
         </Heading>
 
         <Box display="flex" alignItems="center" gap="1rem">
+          <LoginPanel />
+
           <Button onClick={toggleColorMode}>
             {colorMode === "light" ? "🌘" : "🌞"}
           </Button>
-
-          <LoginPanel />
         </Box>
       </Flex>
 

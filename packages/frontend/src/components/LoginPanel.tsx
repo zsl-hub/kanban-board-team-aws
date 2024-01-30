@@ -51,7 +51,7 @@ export default function LoginPanel() {
               </Box>
 
               <LightMode>
-                <Button colorScheme="teal" size="md">
+                <Button colorScheme="teal" size="md" onClick={onClose}>
                   Login
                 </Button>
               </LightMode>
