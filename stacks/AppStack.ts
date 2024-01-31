@@ -8,7 +8,7 @@ function createApi(stack: Stack) {
   
   return new Api(stack, "Api", {
     defaults: {
-      authorizer: "iam",
+      // authorizer: "iam",
       function: {
         bind: [table, bucket],
       },

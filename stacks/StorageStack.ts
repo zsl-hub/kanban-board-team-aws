@@ -1,4 +1,4 @@
-import { Api, StackContext, Table, Bucket } from "sst/constructs"
+import { Api, StackContext, Table, Bucket, WebSocketApi } from "sst/constructs"
 
 export function StorageStack({stack}: StackContext){
   const bucket = new Bucket(stack, 'Uploads')
@@ -13,8 +13,36 @@ export function StorageStack({stack}: StackContext){
     primaryIndex: { partitionKey: "id" },
   });
 
+  const connection = new Table(stack, "Connections", {
+    fields:{
+      id:"string",
+      username:"string"
+    },
+    primaryIndex: { partitionKey: "id" },
+  })
+
+  // Create the WebSocket API
+const api = new WebSocketApi(stack, "Api", {
+  defaults: {
+    function: {
+      bind: [table, connection],
+    },
+  },
+  routes: {
+    $connect: "packages/functions/src/connection/connect.main",
+    $disconnect: "packages/functions/src/connection/disconnect.main",
+    sendmessage: "packages/functions/src/connection/sendMessage.main",
+  },
+});
+
+// Show the API endpoint in the output
+stack.addOutputs({
+  ApiEndpoint: api.url,
+});
+
   return {
     table: table,
+    connection: connection,
     bucket: bucket
   };
 }
