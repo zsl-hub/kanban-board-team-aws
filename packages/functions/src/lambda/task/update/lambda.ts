@@ -60,9 +60,9 @@ export async function main(e: APIGatewayProxyEventV2) {
       
 
     await taskRepository.put(newTask);
+    
+    return ApiResponse.ok(newTask);
 
-    const res = "Updated task.";
-    return ApiResponse.ok(res);
   } catch (err) {
     if (err instanceof z.ZodError) {
       const res = err.issues.map((e) => `${e.message} at field ${e.path}`);

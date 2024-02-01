@@ -31,9 +31,9 @@ export async function main(e: APIGatewayProxyEventV2) {
             });
             taskRepository.batchWrite(tasksInColumn);
         } 
+
         await taskRepository.put(task);
-        const res = "Added task to the table."
-        return ApiResponse.ok(res)
+        return ApiResponse.ok(task)
         
     }catch(err){
         if (err instanceof z.ZodError) {

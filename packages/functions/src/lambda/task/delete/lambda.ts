@@ -34,8 +34,7 @@ export async function main (e: APIGatewayProxyEventV2) {
         })
         taskRepository.batchWrite(oldColumnTasks)
 
-        const response = "Deletion succesful."
-        return ApiResponse.ok(response);
+        return ApiResponse.ok(task); //returning content of the deleted tasks as it might be useful for some funcitions (e.g. Undo/Redo)
 
     }catch(err){
         if (err instanceof ApiError) {
