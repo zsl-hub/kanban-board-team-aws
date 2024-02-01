@@ -26,6 +26,7 @@
 }
 
 .colored-header {
+  cursor: pointer;
   background: linear-gradient(
     90deg,
     rgb(255, 230, 0) 0%,

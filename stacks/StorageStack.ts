@@ -32,6 +32,7 @@ const api = new WebSocketApi(stack, "Api", {
     $connect: "packages/functions/src/connection/connect.main",
     $disconnect: "packages/functions/src/connection/disconnect.main",
     sendrequest: "packages/functions/src/connection/sendRequest.main",
+
   },
 });
 

@@ -1,8 +1,6 @@
 import "./App.css";
 import {
   Flex,
-  Heading,
-  Text,
   Button,
   useColorMode,
   useColorModeValue,
@@ -18,6 +16,7 @@ import { useEffect, useState } from "react";
 import { TaskInterface } from "./types";
 import onDragEnd from "./utils/onDragEnd";
 import LoginPanel from "./components/LoginPanel";
+import Header from "./components/Header";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -37,12 +36,7 @@ function App() {
   return (
     <>
       <Flex justify="space-between" align="center">
-        <Heading display="flex" flexDirection="row" size={["md", "lg", "xl"]}>
-          <Text>
-            <span className="colored-header">AWS</span>
-            ome Kanban
-          </Text>
-        </Heading>
+        <Header />
 
         <Box display="flex" alignItems="center" gap="1rem">
           <LoginPanel />
