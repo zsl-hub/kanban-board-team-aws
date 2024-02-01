@@ -10,13 +10,11 @@ import {
   Badge,
   Circle,
 } from "@chakra-ui/react";
-
 import { Droppable } from "react-beautiful-dnd";
-
+import { motion } from "framer-motion";
 import Icon from "./Icon";
 import Task from "./Task";
 import ModalAddTask from "./ModalAddTask";
-
 import { TaskInterface, ColumnInterface } from "../types";
 
 interface ColumnProps {
@@ -63,13 +61,20 @@ export default function Column({
               className="tasks-flex"
             >
               {tasksForColumn.map((task, index) => (
-                <Task
+                <motion.div
                   key={task.id}
-                  task={task}
-                  tasks={tasks}
-                  setTasks={setTasks}
-                  index={index}
-                />
+                  initial={{ opacity: 0, scale: 0.2 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.2 }}
+                >
+                  <Task
+                    key={task.id}
+                    task={task}
+                    tasks={tasks}
+                    setTasks={setTasks}
+                    index={index}
+                  />
+                </motion.div>
               ))}
               {provided.placeholder}
             </Flex>
