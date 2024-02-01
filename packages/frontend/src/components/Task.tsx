@@ -8,13 +8,10 @@ import {
   useDisclosure,
   Flex,
 } from "@chakra-ui/react";
-
 import { Draggable } from "react-beautiful-dnd";
-
 import { useState } from "react";
 import colors from "../../config/colors";
 import ModalRemoveTask from "./ModalRemoveTask";
-
 import { TaskInterface } from "../types";
 import DrawerEditTask from "./DrawerEditTask";
 
@@ -30,6 +27,8 @@ export default function Task({ task, tasks, setTasks, index }: TaskProps) {
 
   const [name] = useState(task.name);
   const [description] = useState(task.description || "");
+
+  const [isGrabbing, setIsGrabbing] = useState(false);
 
   const {
     isOpen: isDrawerOpen,
@@ -66,16 +65,21 @@ export default function Task({ task, tasks, setTasks, index }: TaskProps) {
       {(provided) => (
         <Card
           className="task"
+          border={isGrabbing ? "2px solid teal" : "2px solid transparent"}
+          _hover={{ border: "2px solid teal" }}
+          transition="border 0.2s ease-in-out"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          onMouseDown={() => setIsGrabbing(true)}
+          onMouseUp={() => setIsGrabbing(false)}
         >
           <CardHeader
             display="flex"
             justifyContent="space-between"
             alignItems="center"
             fontWeight="500"
-            borderBottom={`1px solid ${value}`}
+            borderBottom={task?.description ? `1px solid ${value}` : "none"}
           >
             <Text>{task.name}</Text>
 
