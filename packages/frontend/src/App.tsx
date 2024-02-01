@@ -15,7 +15,6 @@ import { fetchAllTasks } from "./api/endpoints";
 import { useEffect, useState } from "react";
 import { TaskInterface } from "./types";
 import onDragEnd from "./utils/onDragEnd";
-import LoginPanel from "./components/LoginPanel";
 import Header from "./components/Header";
 
 function App() {
@@ -48,8 +47,6 @@ function App() {
           gap="1rem"
           aria-label="User control panel"
         >
-          <LoginPanel />
-
           <Button onClick={toggleColorMode} aria-label="Toggle color mode">
             {colorMode === "light" ? "🌘" : "🌞"}
           </Button>

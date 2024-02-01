@@ -18,9 +18,7 @@ import columns from "../../config/columns";
 import { useState } from "react";
 import { addTask } from "../api/endpoints";
 import { v4 as uuidv4 } from "uuid";
-
 import { TaskInterface, ColumnInterface } from "../types";
-import FileInput from "./FileInput";
 
 interface ModalAddTaskProps {
   isOpen: boolean;
@@ -129,8 +127,6 @@ export default function ModalAddTask({
               </option>
             ))}
           </Select>
-
-          <FileInput />
         </ModalBody>
 
         <ModalFooter>

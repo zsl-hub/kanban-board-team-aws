@@ -18,7 +18,6 @@ import {
 import { TaskInterface } from "../types";
 import { useState } from "react";
 import { updateTask } from "../api/endpoints";
-import FileInput from "./FileInput";
 
 interface DrawerEditTaskProps {
   isOpen: boolean;
@@ -106,12 +105,8 @@ export default function DrawerEditTask({
               <Textarea
                 value={updatedDescription}
                 onChange={(e) => setUpdatedDescription(e.target.value)}
+                h="75vh"
               />
-            </Box>
-
-            <Box>
-              <FormLabel>Media for task</FormLabel>
-              <FileInput />
             </Box>
           </FormControl>
         </DrawerBody>
