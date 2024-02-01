@@ -27,15 +27,29 @@
 
 .colored-header {
   cursor: pointer;
-  background: linear-gradient(
+  background-size: 200% auto;
+  background-image: linear-gradient(
     90deg,
     rgb(255, 230, 0) 0%,
     rgba(255, 184, 0, 1) 46%,
     rgba(255, 162, 0, 1) 100%
   );
+  color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  animation: gradient 7s linear infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 200% center;
+  }
+  50% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
 }
 
 .tasks-flex {
