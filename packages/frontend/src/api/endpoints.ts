@@ -7,6 +7,7 @@ const fetchAllTasks = async () => {
 
 const addTask = async (task: Task) => {
   const params = {
+    id: task?.id || "",
     name: task.name,
     description: task.description,
     columnId: task.columnId,

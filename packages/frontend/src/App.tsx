@@ -5,6 +5,7 @@ import {
   useColorMode,
   useColorModeValue,
   SimpleGrid,
+  useToast,
   Box,
 } from "@chakra-ui/react";
 import columnsFromConfig from "../config/columns";
@@ -17,6 +18,7 @@ import { TaskInterface } from "./types";
 import onDragEnd from "./utils/onDragEnd";
 import LoginPanel from "./components/LoginPanel";
 import Header from "./components/Header";
+import { redo, undo } from "./utils/callEndpoint";
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -25,12 +27,48 @@ function App() {
   const [columns] = useState(columnsFromConfig);
   const [tasks, setTasks] = useState<TaskInterface[]>([]);
 
+  const toast = useToast();
+
   useEffect(() => {
     const getTasks = async () => {
       const fetchedTasks = await fetchAllTasks();
       setTasks(fetchedTasks);
     };
     getTasks();
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = async (event: KeyboardEvent) => {
+      const ctrlPressed = event.ctrlKey || event.metaKey; // metaKey is for Mac
+      const zPressed = event.key.toLocaleLowerCase() === "z";
+      const yPressed = event.key.toLocaleLowerCase() === "y";
+      const tasks = await fetchAllTasks();
+      if (ctrlPressed && zPressed) {
+        undo()
+          .then((e) => {
+            if (e === undefined) return;
+            setTasks(e)
+          })
+          .catch((err) => console.error(err))
+      }
+
+      if (ctrlPressed && yPressed) {
+        redo()
+          .then((e) => {
+            if (e === undefined) return;
+            console.log(tasks);
+            console.log(e);
+            setTasks(e)
+          })
+          .catch((err) => console.error(err))
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   return (

@@ -19,6 +19,7 @@ import { TaskInterface } from "../types";
 import { useState } from "react";
 import { updateTask } from "../api/endpoints";
 import FileInput from "./FileInput";
+import callEndpoint from "../utils/callEndpoint";
 
 interface DrawerEditTaskProps {
   isOpen: boolean;
@@ -56,7 +57,7 @@ export default function DrawerEditTask({
       order: task.order,
     };
 
-    const promise = updateTask(updatedTask)
+    const promise = callEndpoint('update','button',updatedTask)
       .then(() => {
         onUpdateTask(updatedTask);
       })

@@ -21,6 +21,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { TaskInterface, ColumnInterface } from "../types";
 import FileInput from "./FileInput";
+import callEndpoint from "../utils/callEndpoint";
 
 interface ModalAddTaskProps {
   isOpen: boolean;
@@ -53,18 +54,19 @@ export default function ModalAddTask({
     }
 
     const newTask = {
-      id: uuidv4(),
+      id: "",
       name: name,
       description: description,
       columnId: selectedColumnId,
-      order: tasksForColumn.length,
+      order: 99999,
     };
 
-    const promise = addTask(newTask)
-      .then(() => {
-        setTasks([...tasks, newTask]);
+    const promise = callEndpoint('add','button',newTask)
+      .then((e) => {
+        setTasks(e);
       })
       .catch((err) => console.error(err));
+    // setTasks([...tasks, newTask]);
 
     toast.promise(promise, {
       success: {

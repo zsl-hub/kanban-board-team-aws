@@ -11,6 +11,7 @@ import {
 import { useRef } from "react";
 import { deleteTask } from "../api/endpoints";
 import { TaskInterface } from "../types";
+import callEndpoint from "../utils/callEndpoint";
 
 interface ModalRemoveTaskProps {
   isOpen: boolean;
@@ -31,12 +32,15 @@ export default function ModalRemoveTask({
   const toast = useToast();
 
   function handleRemoveTask() {
-    const promise = deleteTask(task.id)
-      .then(() => {
-        const updatedTasks = tasks.filter((t) => t.id !== task.id);
-        setTasks(updatedTasks);
+    const promise = callEndpoint('delete','button',undefined,task.id)
+      .then((e) => {
+        // const updatedTasks = tasks.filter((t) => t.id !== task.id);
+        setTasks(e);
       })
       .catch((err) => console.error(err));
+      const updatedTasks = tasks.filter((t) => t.id !== task.id);
+      setTasks(updatedTasks);
+
 
     toast.promise(promise, {
       success: {

@@ -61,7 +61,10 @@ export async function main(e: APIGatewayProxyEventV2) {
 
     await taskRepository.put(newTask);
     
-    return ApiResponse.ok(newTask);
+    return ApiResponse.ok({
+      oldTask: oldTask,
+      newTask: newTask,
+    });
 
   } catch (err) {
     if (err instanceof z.ZodError) {
