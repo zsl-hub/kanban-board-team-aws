@@ -1,8 +1,6 @@
 import { ApiResponse } from "@kanban-board-team-aws/functions/model/responses";
 import TaskRepository from "@kanban-board-team-aws/functions/repositories/taskRepository";
 import { ApiError } from "@kanban-board-team-aws/functions/model/errors";
-import { WebSocketApi } from "sst/node/websocket-api";
-
 
 const taskRepository = TaskRepository.getTaskRepository();
 

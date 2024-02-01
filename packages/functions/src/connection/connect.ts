@@ -9,7 +9,6 @@ export const main: APIGatewayProxyHandler = async (event) => {
     TableName: Table.Connections.tableName,
     Item: {
       id: event.requestContext.connectionId,
-      username: event.queryStringParameters?.username
     },
   };
 
