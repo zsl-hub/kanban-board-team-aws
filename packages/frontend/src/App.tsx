@@ -35,13 +35,22 @@ function App() {
 
   return (
     <>
-      <Flex justify="space-between" align="center">
+      <Flex
+        justify="space-between"
+        align="center"
+        aria-label="Header section with user controls"
+      >
         <Header />
 
-        <Box display="flex" alignItems="center" gap="1rem">
+        <Box
+          display="flex"
+          alignItems="center"
+          gap="1rem"
+          aria-label="User control panel"
+        >
           <LoginPanel />
 
-          <Button onClick={toggleColorMode}>
+          <Button onClick={toggleColorMode} aria-label="Toggle color mode">
             {colorMode === "light" ? "🌘" : "🌞"}
           </Button>
         </Box>
@@ -49,11 +58,13 @@ function App() {
 
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, tasks, setTasks)}
+        aria-label="Task management area"
       >
         <SimpleGrid
           columns={{ lg: 5, md: 3, sm: 1 }}
           spacing="1rem"
           className="grid"
+          aria-label="Task columns"
         >
           {columns.map((col) => {
             const tasksForColumn = tasks?.filter(
@@ -67,6 +78,7 @@ function App() {
                 setTasks={setTasks}
                 tasksForColumn={tasksForColumn}
                 bgColor={value}
+                aria-label={`Task column ${col.description}`}
               />
             );
           })}

@@ -14,22 +14,30 @@ import {
 
 export default function Header() {
   return (
-    <Heading display="flex" flexDirection="row" size={["md", "lg", "xl"]}>
+    <Heading
+      display="flex"
+      flexDirection="row"
+      size={["md", "lg", "xl"]}
+      aria-label="App header"
+    >
       <Text>
         <Popover>
           <PopoverTrigger>
-            <span className="colored-header">AWS</span>
+            <span className="colored-header" aria-label="AWS popover trigger">
+              AWS
+            </span>
           </PopoverTrigger>
 
-          <PopoverContent ml="2rem">
+          <PopoverContent ml="2rem" aria-label="AWS popover content">
             <PopoverArrow />
-            <PopoverCloseButton />
+            <PopoverCloseButton aria-label="Close AWS popover" />
             <PopoverHeader fontSize="xl">What is this project?</PopoverHeader>
             <PopoverBody
               fontSize="md"
               display="flex"
               flexDirection="column"
               gap="0.5rem"
+              aria-label="Project description"
             >
               This project is a web application, specifically designed as a
               Kanban board, to facilitate task management and workflow
@@ -37,7 +45,12 @@ export default function Header() {
               leverages the power, scalability, and reliability of cloud
               computing to deliver an efficient and user-friendly experience.
               <Text>Key Features: </Text>
-              <OrderedList display="flex" flexDirection="column" gap="0.25rem">
+              <OrderedList
+                display="flex"
+                flexDirection="column"
+                gap="0.25rem"
+                aria-label="Key features list"
+              >
                 <ListItem>
                   Task Management: Users can create, update, and track tasks in
                   real-time, fostering productivity and collaboration.
