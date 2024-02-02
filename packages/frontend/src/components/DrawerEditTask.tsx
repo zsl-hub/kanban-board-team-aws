@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { TaskInterface } from "../types";
 import { useState } from "react";
-import FileInput from "./FileInput";
 import callEndpoint from "../utils/callEndpoint";
 
 interface DrawerEditTaskProps {
@@ -106,12 +105,8 @@ export default function DrawerEditTask({
               <Textarea
                 value={updatedDescription}
                 onChange={(e) => setUpdatedDescription(e.target.value)}
+                h="75vh"
               />
-            </Box>
-
-            <Box>
-              <FormLabel>Media for task</FormLabel>
-              <FileInput />
             </Box>
           </FormControl>
         </DrawerBody>

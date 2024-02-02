@@ -16,7 +16,6 @@ import { fetchAllTasks } from "./api/endpoints";
 import { useEffect, useState } from "react";
 import { TaskInterface } from "./types";
 import onDragEnd from "./utils/onDragEnd";
-import LoginPanel from "./components/LoginPanel";
 import Header from "./components/Header";
 import { redo, undo } from "./utils/callEndpoint";
 
@@ -105,13 +104,20 @@ function App() {
 
   return (
     <>
-      <Flex justify="space-between" align="center">
+      <Flex
+        justify="space-between"
+        align="center"
+        aria-label="Header section with user controls"
+      >
         <Header />
 
-        <Box display="flex" alignItems="center" gap="1rem">
-          <LoginPanel />
-
-          <Button onClick={toggleColorMode}>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap="1rem"
+          aria-label="User control panel"
+        >
+          <Button onClick={toggleColorMode} aria-label="Toggle color mode">
             {colorMode === "light" ? "🌘" : "🌞"}
           </Button>
         </Box>
@@ -119,11 +125,13 @@ function App() {
 
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, tasks, setTasks)}
+        aria-label="Task management area"
       >
         <SimpleGrid
           columns={{ lg: 5, md: 3, sm: 1 }}
           spacing="1rem"
           className="grid"
+          aria-label="Task columns"
         >
           {columns.map((col) => {
             const tasksForColumn = tasks?.filter(
@@ -137,6 +145,7 @@ function App() {
                 setTasks={setTasks}
                 tasksForColumn={tasksForColumn}
                 bgColor={value}
+                aria-label={`Task column ${col.description}`}
               />
             );
           })}
