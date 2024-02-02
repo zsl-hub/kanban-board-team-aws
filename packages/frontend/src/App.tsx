@@ -42,25 +42,57 @@ function App() {
       const ctrlPressed = event.ctrlKey || event.metaKey; // metaKey is for Mac
       const zPressed = event.key.toLocaleLowerCase() === "z";
       const yPressed = event.key.toLocaleLowerCase() === "y";
-      const tasks = await fetchAllTasks();
+
       if (ctrlPressed && zPressed) {
-        undo()
+        const undoPromise = undo()
           .then((e) => {
             if (e === undefined) return;
-            setTasks(e)
+            setTasks(e);
           })
-          .catch((err) => console.error(err))
+          .catch((err) => console.error(err));
+
+        toast.promise(undoPromise, {
+          success: {
+            title: "Undo Successful",
+            description: "Your previous action has been undone.",
+          },
+          error: {
+            title: "Unable to Undo",
+            description:
+              "Oops! Something went wrong while trying to undo your action.",
+          },
+          loading: {
+            title: "Undoing Action",
+            description: "Please wait while we undo your action.",
+          },
+        });
       }
 
       if (ctrlPressed && yPressed) {
-        redo()
+        const redoPromise = redo()
           .then((e) => {
             if (e === undefined) return;
             console.log(tasks);
             console.log(e);
-            setTasks(e)
+            setTasks(e);
           })
-          .catch((err) => console.error(err))
+          .catch((err) => console.error(err));
+
+        toast.promise(redoPromise, {
+          success: {
+            title: "Redo Successful",
+            description: "Your previous action has been redone.",
+          },
+          error: {
+            title: "Unable to Redo",
+            description:
+              "Oops! Something went wrong while trying to redo your action.",
+          },
+          loading: {
+            title: "Redoing Action",
+            description: "Please wait while we redo your action.",
+          },
+        });
       }
     };
 

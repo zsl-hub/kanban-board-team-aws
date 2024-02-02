@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { TaskInterface } from "../types";
 import { useState } from "react";
-import { updateTask } from "../api/endpoints";
 import FileInput from "./FileInput";
 import callEndpoint from "../utils/callEndpoint";
 
@@ -57,7 +56,7 @@ export default function DrawerEditTask({
       order: task.order,
     };
 
-    const promise = callEndpoint('update','button',updatedTask)
+    const promise = callEndpoint("update", "button", updatedTask)
       .then(() => {
         onUpdateTask(updatedTask);
       })
